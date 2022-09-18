@@ -1,7 +1,7 @@
 <head>
-    <link src="../css/bootstrap.css"/>
-    <link src="../styles/styles.css"/>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../assets/styles/styles.css"/>
 
-    <script src="../js/jquery-3.6.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
 </head>

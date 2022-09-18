@@ -1,6 +1,5 @@
-<?php require_once __DIR__ . "/../head.php" ?>
 <html>
-
+<?php require_once __DIR__ . "/header.php" ?>
 <body class="mainBody">
     <h1>Header1</h1>
     <p>Paragraph</p>
