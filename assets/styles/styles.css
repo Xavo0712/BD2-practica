@@ -83,6 +83,8 @@
 .icon {
     display: flex;
     padding-left: 50px;
+    padding-top: 75px;
+    color: white;
 }
 
 .visible {
