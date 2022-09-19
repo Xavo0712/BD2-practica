@@ -1,7 +1,7 @@
 <?php require_once __DIR__ . "/../head.php"?>
-
+<?php require_once __DIR__ . "/menu.php" ?>
 <div class="header col-12">
-    <i class="col-lg-1 fas fa-bars"></i>
+    <div id="navOpener" onclick="openNav()" class="icon"><i class="col-lg-1 fa-solid fa-bars fa-3x"></i></div>
     <h1 class="col-lg-10">This is my custom header title</h1>
     <img class="col-lg-1" src="../assets/img/myimg.png"></i>
 </div>
