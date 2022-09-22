@@ -68,7 +68,7 @@
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: #00eeff;
 }
 
 /* Position and style the close button (top right corner) */
@@ -97,4 +97,86 @@
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s 1s, opacity 1s linear;
+}
+
+.chat {
+    width: 400px!important;
+    height: 550px!important;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-width: 2px;
+    border-color:#00eeff;
+}
+
+.chat .panel{
+    position: relative;
+    height: inherit;
+    border-width: 2px!important;
+    border-color:#4e0a0a!important;
+    border-radius:7px;
+}
+
+.chat-header {
+    display: table;
+    height: 40px;
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(88, 15, 15));
+}
+
+.chat-header *{
+    margin-top: 5px;
+}
+
+.chat-header h5 {
+    color:#00eeff;
+    display:table-cell;
+}
+
+.chat-header i {
+    color:white;
+    display:table-cell;
+}
+
+.chat-body .sent-message{
+    box-sizing: border-box;
+    position:absolute;
+    right:0;
+    width:fit-content;
+    max-width:65%;
+    height:fit-content;
+    padding:10px;
+    color: white;
+    border:2px solid #be1818;
+    text-align:right;
+    border-radius: 10px;
+    background-color: #e25555;
+    margin-right:5px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.chat-body .received-message{
+    box-sizing: border-box;
+    position:absolute;
+    left:0;
+    width:fit-content;
+    max-width:65%;
+    height:fit-content;
+    padding:10px;
+    color: white;
+    border:2px solid #2b2828;
+    text-align:left;
+    border-radius: 10px;
+    background-color: #5a5454;
+    margin-right:5px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.chat-footer {
+    position: absolute; 
+    bottom: 0; 
+    width: 100%; 
+    height: 50px; 
+    border-top: 2px solid #4e0a0a;
 }
