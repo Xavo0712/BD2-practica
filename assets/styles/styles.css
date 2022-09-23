@@ -138,9 +138,11 @@
 }
 
 .chat-body .sent-message{
-    box-sizing: border-box;
-    position:absolute;
-    right:0;
+    width:100%;
+    height:fit-content;
+}
+
+.chat-body .sent-message p{
     width:fit-content;
     max-width:65%;
     height:fit-content;
@@ -150,15 +152,18 @@
     text-align:right;
     border-radius: 10px;
     background-color: #e25555;
+    margin-left:35%;
     margin-right:5px;
     margin-top:10px;
     margin-bottom:10px;
 }
 
 .chat-body .received-message{
-    box-sizing: border-box;
-    position:absolute;
-    left:0;
+    width:100%;
+    height:fit-content;
+}
+
+.chat-body .received-message p{
     width:fit-content;
     max-width:65%;
     height:fit-content;
@@ -168,7 +173,7 @@
     text-align:left;
     border-radius: 10px;
     background-color: #5a5454;
-    margin-right:5px;
+    margin-left:5px;
     margin-top:10px;
     margin-bottom:10px;
 }
@@ -179,4 +184,23 @@
     width: 100%; 
     height: 50px; 
     border-top: 2px solid #4e0a0a;
+}
+
+.chat-footer input{
+    width:95%;
+    border: 2px solid #be1818!important;
+    border-radius: 20px;
+    padding:10px;
+    margin-left:2.5%;
+    background-color: #e25555;
+}
+
+.chat-footer input:focus{
+    outline: none !important;
+    border: 2px solid !important;
+    background-color: #e25555;
+}
+
+.chat-footer input::placeholder {
+    color:white!important;
 }
