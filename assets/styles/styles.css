@@ -107,6 +107,11 @@
     right: 0;
     border-width: 2px;
     border-color:#00eeff;
+    transition: 0.5s;
+}
+
+.chat.folded {
+    height: 40px!important;
 }
 
 .chat .panel{
@@ -135,6 +140,10 @@
 .chat-header i {
     color:white;
     display:table-cell;
+}
+
+.chat-header.folded {
+    bottom:0;
 }
 
 .chat-body .sent-message{
@@ -178,6 +187,10 @@
     margin-bottom:10px;
 }
 
+.chat-body.folded{
+    display: none !important;
+}
+
 .chat-footer {
     position: absolute; 
     bottom: 0; 
@@ -203,4 +216,12 @@
 
 .chat-footer input::placeholder {
     color:white!important;
+}
+
+.chat-footer.folded {
+    display: none !important;
+}
+
+.folded {
+    transition: 0.5s;
 }
