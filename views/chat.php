@@ -3,8 +3,8 @@
     <div id="chatHeader" class="panel-heading chat-header col-12">
       <i class="fa-solid fa-arrow-left text-center"></i>
       <h5 class="text-center">User198</h5>
-      <i id="downChat" class="fa-solid fa-chevron-down text-center"></i>
-      <i id="upChat" class="fa-solid fa-chevron-up text-center" style="display:none"></i>
+      <a href="javascript:void(0)" style="text-decoration: none"><i id="downChat" class="fa-solid fa-chevron-down text-center"></i></a>
+      <a href="javascript:void(0)" style="text-decoration: none"><i id="upChat" class="fa-solid fa-chevron-up text-center" style="display:none"></i></a>
     </div>
     <div id="chatBody" class="panel-body chat-body">
       <div class="sent-message">
