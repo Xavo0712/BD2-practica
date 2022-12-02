@@ -2,6 +2,7 @@
     margin-left: 0;
     transition: margin-left .5s;
     overflow-x: hidden;
+    color: white;
 }
 
 .header {
@@ -108,6 +109,7 @@
     border-width: 2px;
     border-color:#00eeff;
     transition: 0.5s;
+    
 }
 
 .chat.folded {
@@ -120,6 +122,8 @@
     border-width: 2px!important;
     border-color:#4e0a0a!important;
     border-radius:7px;
+    box-shadow: 10px 5px 5px white;
+    box-shadow: white 0px 5px 15px;
 }
 
 .chat-header {
@@ -135,11 +139,15 @@
 .chat-header h5 {
     color:#00eeff;
     display:table-cell;
+    margin-left:auto;
+    margin-right: auto;
 }
 
-.chat-header i {
+.chat-header a {
     color:white;
-    display:table-cell;
+    display:inherit;
+    margin-left: auto;
+    margin-right:20%;
 }
 
 .chat-header.folded {
@@ -161,7 +169,7 @@
     text-align:right;
     border-radius: 10px;
     background-color: #e25555;
-    margin-left:35%;
+    margin-left:auto;
     margin-right:5px;
     margin-top:10px;
     margin-bottom:10px;
@@ -178,10 +186,10 @@
     height:fit-content;
     padding:10px;
     color: white;
-    border:2px solid #2b2828;
+    border:2px solid #161515;
     text-align:left;
     border-radius: 10px;
-    background-color: #5a5454;
+    background-color: #332f2f;
     margin-left:5px;
     margin-top:10px;
     margin-bottom:10px;
@@ -201,6 +209,7 @@
 
 .chat-footer input{
     width:95%;
+    color: white;
     border: 2px solid #be1818!important;
     border-radius: 20px;
     padding:10px;
@@ -224,4 +233,19 @@
 
 .folded {
     transition: 0.5s;
+}
+
+.chat-info {
+    color:white;
+    border-bottom: 2px solid #161515;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.chat-info:hover {
+    background-color: #818181;
+}
+
+.chat-info .username {
+    font-weight: bold;
 }
