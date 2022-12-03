@@ -7,7 +7,7 @@
       <a id="upChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i class="fa-solid fa-chevron-up text-center"></i></a>
     </div>
     <div id="miniChat" style="overflow-y:scroll; height:505px;">
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -26,7 +26,7 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" width="15px" height="10px" />
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -52,7 +52,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -78,7 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -104,7 +104,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -117,7 +117,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -130,7 +130,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -143,7 +143,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -156,7 +156,7 @@
           </div>
         </div>
       </div>
-      <div class="chat-info row" style="cursor: pointer;">
+      <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
         </div>
@@ -216,36 +216,36 @@
   </div>
 </div>
 
-  <script>
-    $('#downChat').click(function() {
-      $('#myChat').addClass('folded');
-      $('#classFooter').addClass('folded');
-      $('#chatHeader').addClass('folded');
+<script>
+  $('#downChat').click(function() {
+    $('#myChat').addClass('folded');
+    $('#classFooter').addClass('folded');
+    $('#chatHeader').addClass('folded');
 
-      $('#downChat').css('display', 'none');
-      $('#upChat').css('display', 'inherit');
-    });
+    $('#downChat').css('display', 'none');
+    $('#upChat').css('display', 'inherit');
+  });
 
-    $('#upChat').click(function() {
-      $('#myChat').removeClass('folded');
-      $('#classFooter').removeClass('folded');
-      $('#chatHeader').removeClass('folded');
+  $('#upChat').click(function() {
+    $('#myChat').removeClass('folded');
+    $('#classFooter').removeClass('folded');
+    $('#chatHeader').removeClass('folded');
 
-      $('#downChat').css('display', 'inherit');
-      $('#upChat').css('display', 'none');
-    });
+    $('#downChat').css('display', 'inherit');
+    $('#upChat').css('display', 'none');
+  });
 
-    $('#backChat').click(function() {
-      $('#backChat').css('display', 'none');
-      $('#chatHeaderText').text('Chats');
-      $('#miniChat').css('display', 'block');
-      $('#chatPersonal').css('display', 'none');
-    });
+  $('#backChat').click(function() {
+    $('#backChat').css('display', 'none');
+    $('#chatHeaderText').text('Chats');
+    $('#miniChat').css('display', 'block');
+    $('#chatPersonal').css('display', 'none');
+  });
 
-    $('.chat-info').click(function() {
-      $('#backChat').css('display', 'inherit');
-      $('#chatHeaderText').text('CapybaraGigaChad');
-      $('#miniChat').css('display', 'none');
-      $('#chatPersonal').css('display', 'block');
-    });
-  </script>
+  $('.chat-info').click(function() {
+    $('#backChat').css('display', 'inherit');
+    $('#chatHeaderText').text('CapybaraGigaChad');
+    $('#miniChat').css('display', 'none');
+    $('#chatPersonal').css('display', 'block');
+  });
+</script>
