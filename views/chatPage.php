@@ -7,7 +7,8 @@
                 <div id="chats" style="overflow-y:scroll; height:875px;">
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -21,12 +22,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -40,12 +43,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -59,12 +64,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -78,12 +85,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -97,12 +106,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -116,12 +127,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -135,12 +148,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -154,12 +169,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -173,12 +190,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" height="20px" style="width:auto;" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                height="20px" style="width:auto;" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -192,12 +211,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" style="width:auto;" height="20px" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                style="width:auto;" height="20px" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -211,12 +232,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" style="width:auto;" height="20px" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                style="width:auto;" height="20px" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -230,12 +253,14 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" style="width:auto;" height="20px" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                style="width:auto;" height="20px" />
                         </div>
                     </div>
                     <div class="chat-info row">
                         <div class="userPic col-lg-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px" height="80px" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="80px"
+                                height="80px" />
                         </div>
                         <div class="row col-lg-8">
                             <div class="username">
@@ -249,7 +274,8 @@
                             <div class="messageInfo">
                                 10min
                             </div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" style="width:auto;" height="20px" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png"
+                                style="width:auto;" height="20px" />
                         </div>
                     </div>
                 </div>
@@ -302,7 +328,7 @@
 </div>
 
 <script>
-    $('.chat-info').click(function() {
-        $('#messages').css('display', 'block');
-    });
+$('.chat-info').click(function() {
+    $('#messages').css('display', 'block');
+});
 </script>
