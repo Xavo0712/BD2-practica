@@ -7,6 +7,34 @@
       <a id="upChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i class="fa-solid fa-chevron-up text-center"></i></a>
     </div>
     <div id="miniChat" style="overflow-y:scroll; height:505px;">
+      <?php
+        $query = DB::run("SELECT username, missatge.text AS msg, missatge.idMsg 
+        FROM (usuari JOIN missatge ON usuari.idUser = missatge.idUserR) 
+        LEFT JOIN missatge AS m ON missatge.idUserR = m.idUserR AND m.idMsg > missatge.idMsg 
+        WHERE m.idMsg IS NULL");//opcionalmente ORDER BY para usuarios por orden de algo...
+        $lastMsgs = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach($lastMsgs as $row){
+          echo "<div class=\"chat-info row\">";
+          echo "  <div class=\"userPic col-lg-2\">";
+          echo "    <img src=\"https://cdn-icons-png.flaticon.com/512/235/235359.png\" width=\"50px\" height=\"50px\" />";
+          echo "  </div>";
+          echo "<div class=\"row col-lg-8\">";
+          echo "    <div class=\"username\">";
+          echo $row['username'];
+          echo "    </div>";
+          echo "    <div class=\"lastMessage\">";
+          echo $row['msg'];
+          echo "    </div>";
+          echo "  </div>";
+          echo "  <div class=\"row col-lg-2\">";
+          echo "    <div class=\"messageInfo\">";
+          echo "      10min"; //no implementado en BD actual sin calculos adicionales
+          echo "    </div>";
+          echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width=\"15px\" height=\"10px\" />";
+          echo "  </div>";
+          echo "</div>";
+        }
+      ?>
       <div class="chat-info row">
         <div class="userPic col-lg-2">
           <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
