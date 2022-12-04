@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/BD2-practica/assets/styles/styles1.css">
     <link rel="scriptsheet" href="scripts.js">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    
     <link rel="register" href="register.php">
     <title>Principal</title>
 </head>
