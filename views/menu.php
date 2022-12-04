@@ -1,3 +1,6 @@
+<?php require_once "../db.php"?>
+<?php require_once "../head.php"?>
+
 <div id="mySidenav" class="sidenav">
   <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="#">About</a>
