@@ -171,7 +171,7 @@
       </div>
     </div>
     <div id="chatPersonal" style="display:none;">
-      <div id="chatBody" style="overflow-y:scroll; height:455px;" class="panel-body chat-body">
+      <div id="chatBody" style="overflow-y:auto; height:455px;" class="panel-body chat-body">
         <div class="sent-message">
           <p>Do you love Capys?</p>
         </div>
