@@ -1,3 +1,4 @@
+<?php $currentChat = 1 ?>
 <div id="myChat" class="chat container">
   <div class="panel panel-default border">
     <div id="chatHeader" class="panel-heading chat-header col-12">
@@ -8,234 +9,76 @@
     </div>
     <div id="miniChat" style="overflow-y:scroll; height:505px;">
       <?php
-        $query = DB::run("SELECT username, missatge.text AS msg, missatge.idMsg 
-        FROM (usuari JOIN missatge ON usuari.idUser = missatge.idUserR) 
-        LEFT JOIN missatge AS m ON missatge.idUserR = m.idUserR AND m.idMsg > missatge.idMsg 
-        WHERE m.idMsg IS NULL");//opcionalmente ORDER BY para usuarios por orden de algo...
-        $lastMsgs = $query->fetchAll(PDO::FETCH_ASSOC);
-        foreach($lastMsgs as $row){
-          echo "<div class=\"chat-info row\">";
-          echo "  <div class=\"userPic col-lg-2\">";
-          echo "    <img src=\"https://cdn-icons-png.flaticon.com/512/235/235359.png\" width=\"50px\" height=\"50px\" />";
-          echo "  </div>";
-          echo "<div class=\"row col-lg-8\">";
-          echo "    <div class=\"username\">";
-          echo $row['username'];
-          echo "    </div>";
-          echo "    <div class=\"lastMessage\">";
-          echo $row['msg'];
-          echo "    </div>";
-          echo "  </div>";
-          echo "  <div class=\"row col-lg-2\">";
-          echo "    <div class=\"messageInfo\">";
-          echo "      10min"; //no implementado en BD actual sin calculos adicionales
-          echo "    </div>";
-          echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width=\"15px\" height=\"10px\" />";
-          echo "  </div>";
-          echo "</div>";
+      $loggedUser = 1; //paco as user for test purpouse
+      $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
+      $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, receivers.idUser AS rId, receivers.username AS receiver, missatge.idMsg, missatge.text, missatge.timeSent 
+      FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
+      JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
+      $statement = $query->fetchAll(PDO::FETCH_ASSOC);
+      //Washing statement so it only contains last message of each chat of current user
+      $lastMsgs = array();
+      foreach($statement as $row){
+        $push = true;
+        foreach($statement as $check){          
+          if(($check['sId'] == $row['sId'] || $check['rId'] == $row['sId']) && 
+          ($check['rId'] == $row['rId'] || $check['rId'] == $row['sId']) && 
+          $check['timeSent'] > $row['timeSent']){
+            $push = false;
+          }
         }
+        if($push){
+          array_push($lastMsgs, $row);
+        }
+      }
+      foreach ($lastMsgs as $row) {
+        if($loggedUsername == $row['sender']){
+          $otherUser = $row['receiver'];
+          $otherUserId = $row['rId'];
+        }
+        else{
+          $otherUser = $row['sender'];
+          $otherUserId = $row['sId'];
+        }
+        echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">";
+        echo "  <div class=\"userPic col-lg-2\">";
+        echo "    <img src=\"https://cdn-icons-png.flaticon.com/512/235/235359.png\" width=\"50px\" height=\"50px\" />";
+        echo "  </div>";
+        echo "<div class=\"row col-lg-8\">";
+        echo "    <div class=\"username\">";
+        echo $otherUser;
+        echo "    </div>";
+        echo "    <div class=\"lastMessage\">";
+        echo $row['text'];
+        echo "    </div>";
+        echo "  </div>";
+        echo "  <div class=\"row col-lg-2\">";
+        echo "    <div class=\"messageInfo\">";
+        echo "      10min"; //ya si, poner la fecha
+        echo "    </div>";
+        echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width=\"15px\" height=\"10px\" />";
+        echo "  </div>";
+        echo "</div>";
+      }
       ?>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-        <div class="row col-lg-2">
-          <div class="messageInfo">
-            10min
-          </div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png" width="15px" height="10px" />
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
-      <div class="chat-info row">
-        <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
-        </div>
-        <div class="row col-lg-8">
-          <div class="username">
-            CapybaraGigaChad
-          </div>
-          <div class="lastMessage">
-            We love capys ^^
-          </div>
-        </div>
-      </div>
     </div>
     <div id="chatPersonal" style="display:none;">
       <div id="chatBody" style="overflow-y:scroll; height:455px;" class="panel-body chat-body">
-        <div class="sent-message">
-          <p>Do you love Capys?</p>
-        </div>
-        <div class="received-message">
-          <p>We love capys ^^</p>
-        </div>
-        <div class="sent-message">
-          <p>Do you love Capys?</p>
-        </div>
-        <div class="received-message">
-          <p>We love capys ^^</p>
-        </div>
-        <div class="sent-message">
-          <p>Do you love Capys?</p>
-        </div>
-        <div class="received-message">
-          <p>We love capys ^^</p>
-        </div>
-        <div class="sent-message">
-          <p>Do you love Capys?</p>
-        </div>
-        <div class="received-message">
-          <p>We love capys ^^</p>
-        </div>
-        <div class="sent-message">
-          <p>Do you love Capys?</p>
-        </div>
-        <div class="received-message">
-          <p>We love capys ^^</p>
-        </div>
-        <div class="sent-message">
-          <p>Do you love Capys?</p>
-        </div>
-        <div class="received-message">
-          <p>We love capys ^^</p>
-        </div>
+        <?php
+        $currentChat = 3;//necesito el id del chat al que hice click;
+        foreach ($statement as $message) {
+          if($message['sId'] == $currentChat || $message['rId'] == $currentChat){
+            if ($message['sId'] == $loggedUser) {
+              echo "    <div class=\"sent-message\">";
+              echo "    <p>" . $message['text'] . "</p>";
+              echo "    </div>";
+            } else {
+              echo "    <div class=\"received-message\">";
+              echo "    <p>" . $message['text'] . "</p>";
+              echo "    </div>";
+            }
+        }
+        }
+        ?>
       </div>
       <div id="classFooter" class="panel-footer chat-footer">
         <input id="chatWriter" placeholder="Escriba un mensaje"></input>
@@ -272,7 +115,8 @@
 
   $('.chat-info').click(function() {
     $('#backChat').css('display', 'inherit');
-    $('#chatHeaderText').text('CapybaraGigaChad');
+    $('#chatHeaderText').text($(this).attr('name'));
+    $('#chatPersonal').attr('name');
     $('#miniChat').css('display', 'none');
     $('#chatPersonal').css('display', 'block');
   });
