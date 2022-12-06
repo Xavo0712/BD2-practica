@@ -9,6 +9,7 @@
     </div>
     <div id="miniChat" style="overflow-y:scroll; height:505px;">
       <?php
+      $userChats = array();
       $loggedUser = 1; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
       $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, receivers.idUser AS rId, receivers.username AS receiver, missatge.idMsg, missatge.text, missatge.timeSent 
@@ -39,51 +40,57 @@
           $otherUser = $row['sender'];
           $otherUserId = $row['sId'];
         }
-        echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">";
-        echo "  <div class=\"userPic col-lg-2\">";
-        echo "    <img src=\"https://cdn-icons-png.flaticon.com/512/235/235359.png\" width=\"50px\" height=\"50px\" />";
-        echo "  </div>";
-        echo "<div class=\"row col-lg-8\">";
-        echo "    <div class=\"username\">";
-        echo $otherUser;
-        echo "    </div>";
-        echo "    <div class=\"lastMessage\">";
-        echo $row['text'];
-        echo "    </div>";
-        echo "  </div>";
-        echo "  <div class=\"row col-lg-2\">";
-        echo "    <div class=\"messageInfo\">";
-        echo "      10min"; //ya si, poner la fecha
-        echo "    </div>";
-        echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width=\"15px\" height=\"10px\" />";
-        echo "  </div>";
-        echo "</div>";
+        array_push($userChats, $otherUserId);
+        echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">\n";
+        echo "  <div class=\"userPic col-lg-2\">\n";
+        echo "    <img src=\"https://cdn-icons-png.flaticon.com/512/235/235359.png\" width=\"50px\" height=\"50px\" />\n";
+        echo "  </div>\n";
+        echo "<div class=\"row col-lg-8\">\n";
+        echo "    <div class=\"username\">\n";
+        echo $otherUser . "\n";
+        echo "    </div>\n";
+        echo "    <div class=\"lastMessage\">\n";
+        echo $row['text']."\n";
+        echo "    </div>\n";
+        echo "  </div>\n";
+        echo "  <div class=\"row col-lg-2\">\n";
+        echo "    <div class=\"messageInfo\">\n";
+        echo "      10min\n"; //ya si, poner la fecha
+        echo "    </div>\n";
+        echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width=\"15px\" height=\"10px\" />\n";
+        echo "  </div>\n";
+        echo "</div>\n";
       }
-      ?>
-    </div>
-    <div id="chatPersonal" style="display:none;">
-      <div id="chatBody" style="overflow-y:scroll; height:455px;" class="panel-body chat-body">
-        <?php
-        $currentChat = 3;//necesito el id del chat al que hice click;
-        foreach ($statement as $message) {
-          if($message['sId'] == $currentChat || $message['rId'] == $currentChat){
-            if ($message['sId'] == $loggedUser) {
-              echo "    <div class=\"sent-message\">";
-              echo "    <p>" . $message['text'] . "</p>";
-              echo "    </div>";
-            } else {
-              echo "    <div class=\"received-message\">";
-              echo "    <p>" . $message['text'] . "</p>";
-              echo "    </div>";
-            }
-        }
-        }
         ?>
       </div>
-      <div id="classFooter" class="panel-footer chat-footer">
+
+      <?php 
+      foreach($userChats as $chat){
+      echo "<div id=\"chatPersonal".$chat."\" style=\"display:none;\" class=\"chatPersonal\">\n
+      <div id=\"chatBody\" style=\"overflow-y:scroll; height:455px;\" class=\"panel-body chat-body\">\n";
+      $currentChat = $chat;
+      foreach ($statement as $message) {
+        if($message['sId'] == $currentChat || $message['rId'] == $currentChat){
+          if ($message['sId'] == $loggedUser) {
+            echo "    <div class=\"sent-message\">\n";
+            echo "    <p>" . $message['text'] . "</p>\n";
+            echo "    </div>\n";
+          } else {
+            echo "    <div class=\"received-message\">\n";
+            echo "    <p>" . $message['text'] . "</p>\n";
+            echo "    </div>\n";
+          }
+        }
+      }
+    
+      ?>
+      <!--TODO: Fix footer padding  and position -->
+      <div id="classFooter<?php echo $chat?>" class="panel-footer chat-footer">
         <input id="chatWriter" placeholder="Escriba un mensaje"></input>
       </div>
+  </div>
     </div>
+    <?php } ?>
   </div>
 </div>
 
@@ -110,14 +117,15 @@
     $('#backChat').css('display', 'none');
     $('#chatHeaderText').text('Chats');
     $('#miniChat').css('display', 'block');
-    $('#chatPersonal').css('display', 'none');
+    $('.chatPersonal').css('display', 'none');
   });
 
   $('.chat-info').click(function() {
     $('#backChat').css('display', 'inherit');
     $('#chatHeaderText').text($(this).attr('name'));
     $('#chatPersonal').attr('name');
+    console.log("Clicado: "+$(this).attr('id')+", mostrando a "+'#chatPersonal'+$(this).attr('id'));
     $('#miniChat').css('display', 'none');
-    $('#chatPersonal').css('display', 'block');
+    $('#chatPersonal'+$(this).attr('id')).css('display', 'block');
   });
 </script>
