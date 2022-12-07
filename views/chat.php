@@ -147,13 +147,16 @@ function enterMessage(event, id, sender, receiver) {
                 console.log("Message sent successfully")
             }
         });
-        var chatId = 'chatBody' + id.substr(10);
+        var idN = id.substr(10);
+        var chatId = 'chatBody' + idN;
         var sentMessageP = document.createElement('p');
         sentMessageP.innerHTML = msg;
         var sentMessageDiv = document.createElement('div');
         sentMessageDiv.className = 'sent-message';
         sentMessageDiv.appendChild(sentMessageP);
         document.getElementById(chatId).appendChild(sentMessageDiv);
+        var lastMsg = (document.getElementById(idN)).getElementsByClassName('lastMessage');
+        lastMsg[0].innerHTML = msg;
         document.getElementById(id).value = "";
     }
 }
