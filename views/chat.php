@@ -1,14 +1,17 @@
 <?php $currentChat = 1 ?>
 <div id="myChat" class="chat container">
-  <div class="panel panel-default border">
-    <div id="chatHeader" class="panel-heading chat-header col-12">
-      <a id="backChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i class="fa-solid fa-arrow-left text-center"></i></a>
-      <h5 id="chatHeaderText" class="text-center">Chats</h5>
-      <a id="downChat" href="javascript:void(0)" style="text-decoration: none;"><i class="fa-solid fa-chevron-down text-center"></i></a>
-      <a id="upChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i class="fa-solid fa-chevron-up text-center"></i></a>
-    </div>
-    <div id="miniChat" style="overflow-y:scroll; height:505px;">
-      <?php
+    <div class="panel panel-default border">
+        <div id="chatHeader" class="panel-heading chat-header col-12">
+            <a id="backChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i
+                    class="fa-solid fa-arrow-left text-center"></i></a>
+            <h5 id="chatHeaderText" class="text-center">Chats</h5>
+            <a id="downChat" href="javascript:void(0)" style="text-decoration: none;"><i
+                    class="fa-solid fa-chevron-down text-center"></i></a>
+            <a id="upChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i
+                    class="fa-solid fa-chevron-up text-center"></i></a>
+        </div>
+        <div id="miniChat" style="overflow-y:scroll; height:505px;">
+            <?php
       $userChats = array();
       $loggedUser = 1; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
@@ -18,25 +21,26 @@
       $statement = $query->fetchAll(PDO::FETCH_ASSOC);
       //Washing statement so it only contains last message of each chat of current user
       $lastMsgs = array();
-      foreach($statement as $row){
+      foreach ($statement as $row) {
         $push = true;
-        foreach($statement as $check){          
-          if(($check['sId'] == $row['sId'] || $check['rId'] == $row['sId']) && 
-          ($check['rId'] == $row['rId'] || $check['rId'] == $row['sId']) && 
-          $check['timeSent'] > $row['timeSent']){
+        foreach ($statement as $check) {
+          if ((($check['sId'] == $row['sId'] &&
+              $check['rId'] == $row['rId']) ||
+              ($check['sId'] == $row['rId'] && $check['rId'] == $row['sId'])) &&
+            $check['timeSent'] > $row['timeSent']
+          ) {
             $push = false;
           }
         }
-        if($push){
+        if ($push) {
           array_push($lastMsgs, $row);
         }
       }
       foreach ($lastMsgs as $row) {
-        if($loggedUsername == $row['sender']){
+        if ($loggedUsername == $row['sender']) {
           $otherUser = $row['receiver'];
           $otherUserId = $row['rId'];
-        }
-        else{
+        } else {
           $otherUser = $row['sender'];
           $otherUserId = $row['sId'];
         }
@@ -50,7 +54,7 @@
         echo $otherUser . "\n";
         echo "    </div>\n";
         echo "    <div class=\"lastMessage\">\n";
-        echo $row['text']."\n";
+        echo $row['text'] . "\n";
         echo "    </div>\n";
         echo "  </div>\n";
         echo "  <div class=\"row col-lg-2\">\n";
@@ -61,16 +65,16 @@
         echo "  </div>\n";
         echo "</div>\n";
       }
-        ?>
-      </div>
+      ?>
+        </div>
 
-      <?php 
-      foreach($userChats as $chat){
-      echo "<div id=\"chatPersonal".$chat."\" style=\"display:none;\" class=\"chatPersonal\">\n
-      <div id=\"chatBody\" style=\"overflow-y:scroll; height:455px;\" class=\"panel-body chat-body\">\n";
+        <?php
+    foreach ($userChats as $chat) {
+      echo "<div id=\"chatPersonal" . $chat . "\" style=\"display:none;\" class=\"chatPersonal\">\n
+      <div id=\"chatBody" . $chat . "\" style=\"overflow-y:scroll; height:455px;\" class=\"panel-body chat-body\">\n";
       $currentChat = $chat;
       foreach ($statement as $message) {
-        if($message['sId'] == $currentChat || $message['rId'] == $currentChat){
+        if ($message['sId'] == $currentChat || $message['rId'] == $currentChat) {
           if ($message['sId'] == $loggedUser) {
             echo "    <div class=\"sent-message\">\n";
             echo "    <p>" . $message['text'] . "</p>\n";
@@ -82,50 +86,75 @@
           }
         }
       }
-    
-      ?>
-      <!--TODO: Fix footer padding  and position -->
-      <div id="classFooter<?php echo $chat?>" class="panel-footer chat-footer">
-        <input id="chatWriter" placeholder="Escriba un mensaje"></input>
-      </div>
-  </div>
+    ?>
     </div>
-    <?php } ?>
-  </div>
+    <!--TODO: Fix footer padding  and position -->
+    <div id="classFooter<?php echo $chat ?>" class="panel-footer chat-footer">
+        <input id="chatWriter<?php echo $chat ?>" placeholder="Escriba un mensaje"
+            onkeypress="enterMessage(event, 'chatWriter<?php echo $chat ?>', <?php echo $loggedUser ?>,<?php echo $currentChat ?>)"></input>
+    </div>
+</div>
+<?php } ?>
 </div>
 
 <script>
-  $('#downChat').click(function() {
+$('#downChat').click(function() {
     $('#myChat').addClass('folded');
     $('#classFooter').addClass('folded');
     $('#chatHeader').addClass('folded');
 
     $('#downChat').css('display', 'none');
     $('#upChat').css('display', 'inherit');
-  });
+});
 
-  $('#upChat').click(function() {
+$('#upChat').click(function() {
     $('#myChat').removeClass('folded');
     $('#classFooter').removeClass('folded');
     $('#chatHeader').removeClass('folded');
 
     $('#downChat').css('display', 'inherit');
     $('#upChat').css('display', 'none');
-  });
+});
 
-  $('#backChat').click(function() {
+$('#backChat').click(function() {
     $('#backChat').css('display', 'none');
     $('#chatHeaderText').text('Chats');
     $('#miniChat').css('display', 'block');
     $('.chatPersonal').css('display', 'none');
-  });
+});
 
-  $('.chat-info').click(function() {
+$('.chat-info').click(function() {
     $('#backChat').css('display', 'inherit');
     $('#chatHeaderText').text($(this).attr('name'));
     $('#chatPersonal').attr('name');
-    console.log("Clicado: "+$(this).attr('id')+", mostrando a "+'#chatPersonal'+$(this).attr('id'));
+    console.log("Clicado: " + $(this).attr('id') + ", mostrando a " + '#chatPersonal' + $(this).attr('id'));
     $('#miniChat').css('display', 'none');
-    $('#chatPersonal'+$(this).attr('id')).css('display', 'block');
-  });
+    $('#chatPersonal' + $(this).attr('id')).css('display', 'block');
+});
+
+function enterMessage(event, id, sender, receiver) {
+    if (event.keyCode == 13) {
+        var msg = document.getElementById(id).value;
+        $.ajax({
+            url: "../server/msgInsert.php",
+            type: "GET",
+            data: {
+                text: msg,
+                idS: sender,
+                idR: receiver
+            },
+            success: function() {
+                console.log("Message sent successfully")
+            }
+        });
+        var chatId = 'chatBody' + id.substr(10);
+        var sentMessageP = document.createElement('p');
+        sentMessageP.innerHTML = msg;
+        var sentMessageDiv = document.createElement('div');
+        sentMessageDiv.className = 'sent-message';
+        sentMessageDiv.appendChild(sentMessageP);
+        document.getElementById(chatId).appendChild(sentMessageDiv);
+        document.getElementById(id).value = "";
+    }
+}
 </script>
