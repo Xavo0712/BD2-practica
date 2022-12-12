@@ -67,7 +67,6 @@
       }
       ?>
         </div>
-
         <?php
     foreach ($userChats as $chat) {
       echo "<div id=\"chatPersonal" . $chat . "\" style=\"display:none;\" class=\"chatPersonal\">\n
@@ -88,7 +87,6 @@
       }
     ?>
     </div>
-    <!--TODO: Fix footer padding  and position -->
     <div id="classFooter<?php echo $chat ?>" class="panel-footer chat-footer">
         <input id="chatWriter<?php echo $chat ?>" placeholder="Escriba un mensaje"
             onkeypress="enterMessage(event, 'chatWriter<?php echo $chat ?>', <?php echo $loggedUser ?>,<?php echo $currentChat ?>)"></input>
