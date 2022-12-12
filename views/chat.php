@@ -13,11 +13,11 @@
         <div id="miniChat" style="overflow-y:scroll; height:505px;">
             <?php
       $userChats = array();
-      $loggedUser = 1; //paco as user for test purpouse
+      $loggedUser = 3; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
       $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, receivers.idUser AS rId, receivers.username AS receiver, missatge.idMsg, missatge.text, missatge.timeSent 
       FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
-      JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
+      JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser ORDER BY missatge.timeSent;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
       $statement = $query->fetchAll(PDO::FETCH_ASSOC);
       //Washing statement so it only contains last message of each chat of current user
       $lastMsgs = array();
@@ -155,6 +155,9 @@ function enterMessage(event, id, sender, receiver) {
         sentMessageDiv.className = 'sent-message';
         sentMessageDiv.appendChild(sentMessageP);
         document.getElementById(chatId).appendChild(sentMessageDiv);
+        sentMessageDiv.scrollIntoView({
+            behavior: "smooth"
+        });
         var lastMsg = (document.getElementById(idN)).getElementsByClassName('lastMessage');
         lastMsg[0].innerHTML = msg;
         document.getElementById(id).value = "";
