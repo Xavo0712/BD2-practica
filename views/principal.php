@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php require_once "../db.php"?>
+<?php require_once "../head.php"?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/styles1.css">
+    <link rel="stylesheet" href="/BD2-practica/assets/styles/styles1.css">
     <link rel="scriptsheet" href="scripts.js">
     
     <link rel="register" href="register.php">
@@ -17,11 +18,8 @@
     <?php
     $nick = $_GET['nomUsuari'];
     $pss = $_GET['contrassenya'];
-    $con = mysqli_connect("localhost", "root", "");
-    $db = mysqli_select_db($con, "usuaristemporals");
-    $notis = mysqli_query($con, "select count(nomUsuari), contrassenya from persona where nomUsuari = '" . $nick . "'");
-    $nreg = mysqli_fetch_array($notis);
-    if ($nreg[0] == 0 || $pss != $nreg['contrassenya']) { ?>
+    $nreg = DB::run("select id, count(username), contrasenya from usuari where username = ?", [$nick])->fetchAll();
+    if ($nreg[0]["count(username)"] == 0 || $pss != $nreg[0]['contrasenya']) { ?>
 
         <div class="main">
             <p class="sign" id="error" align="center">La contrassenya o el nom d'usuari son incorrectes</p>
@@ -29,9 +27,11 @@
         </div>
 
     <?php
-    } else { ?>
+    } else { 
+        $_SESSION['user'] = $nreg[0]['id'];?>
         <script>
-            window.replace('./main.php');
+            
+            window.location.replace('/BD2-practica/<?php echo basename(__DIR__) ?>/main.php');
         </script>
     <?php }
     ?>
