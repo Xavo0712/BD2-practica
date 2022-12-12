@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php require_once "../db.php"?>
+<?php require_once "../head.php"?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,11 +18,8 @@
     <?php
     $nick = $_GET['nomUsuari'];
     $pss = $_GET['contrassenya'];
-    $con = mysqli_connect("localhost", "root", "");
-    $db = mysqli_select_db($con, "bd201");
-    $notis = mysqli_query($con, "select count(username), contrasenya from usuari where username = '" . $nick . "'");
-    $nreg = mysqli_fetch_array($notis);
-    if ($nreg[0] == 0 || $pss != $nreg['contrasenya']) { ?>
+    $nreg = DB::run("select count(username), contrasenya from usuari where username = ?", [$nick])->fetchAll();
+    if ($nreg[0]["count(username)"] == 0 || $pss != $nreg[0]['contrasenya']) { ?>
 
         <div class="main">
             <p class="sign" id="error" align="center">La contrassenya o el nom d'usuari son incorrectes</p>

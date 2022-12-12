@@ -9,7 +9,7 @@
     <div id="miniChat" style="overflow-y:scroll; height:505px;">
       <div class="chat-info row">
         <div class="userPic col-lg-2">
-          <img src="https://cdn-icons-png.flaticon.com/512/235/235359.png" width="50px" height="50px" />
+          <img src="https://drive.google.com/uc?export=view&id=1m29xLDLgmmOcCviT8quBOomm8Gx85b1O" width="50px" height="50px" />
         </div>
         <div class="row col-lg-8">
           <div class="username">
