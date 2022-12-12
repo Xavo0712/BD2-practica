@@ -13,7 +13,7 @@
         <div id="miniChat" style="overflow-y:scroll; height:505px;">
             <?php
       $userChats = array();
-      $loggedUser = 3; //paco as user for test purpouse
+      $loggedUser = $_SESSION['user']; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
       $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, receivers.idUser AS rId, receivers.username AS receiver, missatge.idMsg, missatge.text, missatge.timeSent 
       FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
