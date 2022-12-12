@@ -13,9 +13,9 @@
         <div id="miniChat" style="overflow-y:scroll; height:505px;">
             <?php
       $userChats = array();
-      $loggedUser = $_SESSION['user']; //paco as user for test purpouse
+      $loggedUser = $_COOKIE['user']; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
-      $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, receivers.idUser AS rId, receivers.username AS receiver, missatge.idMsg, missatge.text, missatge.timeSent 
+      $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, senders.imagen AS sImg, receivers.idUser AS rId, receivers.username AS receiver, receivers.imagen AS rImg, missatge.idMsg, missatge.text, missatge.timeSent 
       FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
       JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser ORDER BY missatge.timeSent;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
       $statement = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -40,14 +40,16 @@
         if ($loggedUsername == $row['sender']) {
           $otherUser = $row['receiver'];
           $otherUserId = $row['rId'];
+          $otherUserImg = $row['rImg'];
         } else {
           $otherUser = $row['sender'];
           $otherUserId = $row['sId'];
+          $otherUserImg = $row['sImg'];
         }
         array_push($userChats, $otherUserId);
         echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">\n";
         echo "  <div class=\"userPic col-lg-2\">\n";
-        echo "    <img src=\"https://cdn-icons-png.flaticon.com/512/235/235359.png\" width=\"50px\" height=\"50px\" />\n";
+        echo "    <img src=\"" . $otherUserImg . "\" width=\"50px\" height=\"50px\" />\n";
         echo "  </div>\n";
         echo "<div class=\"row col-lg-8\">\n";
         echo "    <div class=\"username\">\n";
