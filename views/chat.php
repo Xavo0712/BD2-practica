@@ -96,6 +96,7 @@
 </div>
 <?php } ?>
 </div>
+</div>
 
 <script>
 $('#downChat').click(function() {
