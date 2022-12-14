@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require_once "../db.php"?>
-<?php require_once "../head.php"?>
+<?php require_once "../db.php" ?>
+<?php require_once "../head.php" ?>
 
 <body>
 
@@ -20,9 +20,13 @@
     ?>
 
     <div class="main">
+        <?php $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        $thisPath = dirname($_SERVER['PHP_SELF']);
+        $onlyPath = str_replace($rootPath, '', $thisPath); ?>
         <p class="sign" align="center">Usuari registrat correctament</p>
-        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/login.php" id="torn">Tornar a Login</a>
+        <a href="<?php echo $onlyPath ?>/login.php" id="torn">Tornar a Login</a>
     </div>
 
 </body>
+
 </html>
