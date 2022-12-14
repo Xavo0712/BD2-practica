@@ -37,10 +37,12 @@
                 <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px;">
                     <?php
                     foreach ($allUserPosts as $post) {
-                        echo "  <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
-                                    <p>" . $post['text'] . "</p>
-                                    <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
-                                </div>";
+                        echo "  <a href=\"post.php?postId=". $post['idPub'] ."\">
+                                    <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
+                                        <p>" . $post['text'] . "</p>
+                                        <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
+                                    </div>
+                                </a>";
                     }
                     ?>
                 </div>
@@ -56,10 +58,12 @@
                             <div class=\"carousel-inner\">";
                         foreach ($story as $post) {
 
-                            echo "  <div id=\"post" . $post['idPub'] . "\" class=\"carousel-item row post ".(($primero == false)? "active" : "" )."\">
-                                        <p>" . $post['text'] . "</p>
-                                        <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
-                                    </div>";
+                            echo "  <a href=\"post.php?postId=". $post['idPub'] ."\">
+                                        <div id=\"post" . $post['idPub'] . "\" class=\"carousel-item row post ".(($primero == false)? "active" : "" )."\">
+                                            <p>" . $post['text'] . "</p>
+                                            <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
+                                        </div>
+                                    </a>";
                             $primero = true;
                         }
                         echo "</div>
