@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2022 a las 18:08:27
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.10
+-- Temps de generació: 15-12-2022 a les 00:07:55
+-- Versió del servidor: 10.4.18-MariaDB
+-- Versió de PHP: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `bd201`
+-- Base de dades: `bd201`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `follow`
+-- Estructura de la taula `follow`
 --
 
 CREATE TABLE `follow` (
@@ -35,19 +35,30 @@ CREATE TABLE `follow` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historia`
+-- Estructura de la taula `historia`
 --
 
 CREATE TABLE `historia` (
   `idHist` int(11) NOT NULL,
   `tipus` tinyint(1) NOT NULL DEFAULT 0,
-  `idUser` int(11) NOT NULL
+  `idUser` int(11) NOT NULL,
+  `titol` char(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Bolcament de dades per a la taula `historia`
+--
+
+INSERT INTO `historia` (`idHist`, `tipus`, `idUser`, `titol`) VALUES
+(1, 1, 5, ''),
+(2, 1, 5, ''),
+(3, 1, 5, ''),
+(4, 1, 5, 'ciutats');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `missatge`
+-- Estructura de la taula `missatge`
 --
 
 CREATE TABLE `missatge` (
@@ -61,20 +72,29 @@ CREATE TABLE `missatge` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `publicacio`
+-- Estructura de la taula `publicacio`
 --
 
 CREATE TABLE `publicacio` (
   `idPub` int(11) NOT NULL,
   `data` datetime NOT NULL,
   `idHist` int(11) NOT NULL,
+  `link` char(255) NOT NULL,
+  `text` char(255) NOT NULL,
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Bolcament de dades per a la taula `publicacio`
+--
+
+INSERT INTO `publicacio` (`idPub`, `data`, `idHist`, `link`, `text`, `idUser`) VALUES
+(1, '2022-12-15 00:03:53', 2, '333', '333', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `resposta`
+-- Estructura de la taula `resposta`
 --
 
 CREATE TABLE `resposta` (
@@ -88,7 +108,7 @@ CREATE TABLE `resposta` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `r_reenv`
+-- Estructura de la taula `r_reenv`
 --
 
 CREATE TABLE `r_reenv` (
@@ -99,7 +119,7 @@ CREATE TABLE `r_reenv` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuari`
+-- Estructura de la taula `usuari`
 --
 
 CREATE TABLE `usuari` (
@@ -112,25 +132,32 @@ CREATE TABLE `usuari` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Índices para tablas volcadas
+-- Bolcament de dades per a la taula `usuari`
+--
+
+INSERT INTO `usuari` (`idUser`, `nom`, `contrasenya`, `telefon`, `correu`, `username`) VALUES
+(5, '111', '111', 111, '111', '111');
+
+--
+-- Índexs per a les taules bolcades
 --
 
 --
--- Indices de la tabla `follow`
+-- Índexs per a la taula `follow`
 --
 ALTER TABLE `follow`
   ADD PRIMARY KEY (`idUserFollower`,`idUserFollowing`),
   ADD KEY `idUserFollowing` (`idUserFollowing`);
 
 --
--- Indices de la tabla `historia`
+-- Índexs per a la taula `historia`
 --
 ALTER TABLE `historia`
   ADD PRIMARY KEY (`idHist`),
   ADD KEY `idUser` (`idUser`);
 
 --
--- Indices de la tabla `missatge`
+-- Índexs per a la taula `missatge`
 --
 ALTER TABLE `missatge`
   ADD PRIMARY KEY (`idMsg`),
@@ -138,7 +165,7 @@ ALTER TABLE `missatge`
   ADD KEY `idUserR` (`idUserR`);
 
 --
--- Indices de la tabla `publicacio`
+-- Índexs per a la taula `publicacio`
 --
 ALTER TABLE `publicacio`
   ADD PRIMARY KEY (`idPub`),
@@ -146,7 +173,7 @@ ALTER TABLE `publicacio`
   ADD KEY `idUser` (`idUser`);
 
 --
--- Indices de la tabla `resposta`
+-- Índexs per a la taula `resposta`
 --
 ALTER TABLE `resposta`
   ADD PRIMARY KEY (`idRes`),
@@ -154,86 +181,92 @@ ALTER TABLE `resposta`
   ADD KEY `idPub` (`idPub`);
 
 --
--- Indices de la tabla `r_reenv`
+-- Índexs per a la taula `r_reenv`
 --
 ALTER TABLE `r_reenv`
   ADD PRIMARY KEY (`idUser`,`idPub`),
   ADD KEY `idPub` (`idPub`);
 
 --
--- Indices de la tabla `usuari`
+-- Índexs per a la taula `usuari`
 --
 ALTER TABLE `usuari`
   ADD PRIMARY KEY (`idUser`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT per les taules bolcades
 --
 
 --
--- AUTO_INCREMENT de la tabla `missatge`
+-- AUTO_INCREMENT per la taula `historia`
+--
+ALTER TABLE `historia`
+  MODIFY `idHist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT per la taula `missatge`
 --
 ALTER TABLE `missatge`
   MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT de la tabla `publicacio`
+-- AUTO_INCREMENT per la taula `publicacio`
 --
 ALTER TABLE `publicacio`
-  MODIFY `idPub` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `resposta`
+-- AUTO_INCREMENT per la taula `resposta`
 --
 ALTER TABLE `resposta`
   MODIFY `idRes` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuari`
+-- AUTO_INCREMENT per la taula `usuari`
 --
 ALTER TABLE `usuari`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Restricciones para tablas volcadas
+-- Restriccions per a les taules bolcades
 --
 
 --
--- Filtros para la tabla `follow`
+-- Restriccions per a la taula `follow`
 --
 ALTER TABLE `follow`
   ADD CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`idUserFollower`) REFERENCES `usuari` (`idUser`),
   ADD CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`idUserFollowing`) REFERENCES `usuari` (`idUser`);
 
 --
--- Filtros para la tabla `historia`
+-- Restriccions per a la taula `historia`
 --
 ALTER TABLE `historia`
   ADD CONSTRAINT `historia_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `usuari` (`idUser`);
 
 --
--- Filtros para la tabla `missatge`
+-- Restriccions per a la taula `missatge`
 --
 ALTER TABLE `missatge`
   ADD CONSTRAINT `missatge_ibfk_1` FOREIGN KEY (`idUserE`) REFERENCES `usuari` (`idUser`),
   ADD CONSTRAINT `missatge_ibfk_2` FOREIGN KEY (`idUserR`) REFERENCES `usuari` (`idUser`);
 
 --
--- Filtros para la tabla `publicacio`
+-- Restriccions per a la taula `publicacio`
 --
 ALTER TABLE `publicacio`
   ADD CONSTRAINT `publicacio_ibfk_1` FOREIGN KEY (`idHist`) REFERENCES `historia` (`idHist`),
   ADD CONSTRAINT `publicacio_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `usuari` (`idUser`);
 
 --
--- Filtros para la tabla `resposta`
+-- Restriccions per a la taula `resposta`
 --
 ALTER TABLE `resposta`
   ADD CONSTRAINT `resposta_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `usuari` (`idUser`),
   ADD CONSTRAINT `resposta_ibfk_2` FOREIGN KEY (`idPub`) REFERENCES `publicacio` (`idPub`);
 
 --
--- Filtros para la tabla `r_reenv`
+-- Restriccions per a la taula `r_reenv`
 --
 ALTER TABLE `r_reenv`
   ADD CONSTRAINT `r_reenv_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `usuari` (`idUser`),

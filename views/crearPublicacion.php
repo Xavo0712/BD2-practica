@@ -11,7 +11,8 @@
                 <input name="link" class="un " type="text" align="center" placeholder="Link de la imatge">
                 <input name="text" class="un " type="text" align="center" placeholder="Text">
                 <p class="sign" align="center">Afegir a una història</p>
-                <select name="hist" class="form-select"style="width: auto; margin-left: 43.5%;" aria-label="Default select example">
+                <select name="hist" class="form-select" style="width: auto; margin-left: 43.5%;"
+                    aria-label="Default select example">
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
