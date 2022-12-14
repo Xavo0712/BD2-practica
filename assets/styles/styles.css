@@ -275,6 +275,10 @@
     text-align: left;
 }
 
+.username {
+    font-weight: bold;
+}
+
 .post {
     height: auto !important;
     padding-top: 10px;
@@ -309,4 +313,8 @@
 
 .panel ::-webkit-scrollbar-thumb:hover {
     background: rgb(165, 24, 24);
+}
+
+.userPic {
+    border-radius:35%;
 }
