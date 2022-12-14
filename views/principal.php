@@ -18,7 +18,7 @@
     <?php
     $nick = $_GET['nomUsuari'];
     $pss = $_GET['contrassenya'];
-    $nreg = DB::run("select id, count(username), contrasenya from usuari where username = ?", [$nick])->fetchAll();
+    $nreg = DB::run("select idUser, count(username), contrasenya from usuari where username = ?", [$nick])->fetchAll();
     if ($nreg[0]["count(username)"] == 0 || $pss != $nreg[0]['contrasenya']) { ?>
 
         <div class="main">
@@ -27,10 +27,11 @@
         </div>
 
     <?php
-    } else { 
-        $_SESSION['user'] = $nreg[0]['id'];?>
+    } else {
+        setcookie("user", $nreg[0]['idUser']);
+        echo $_COOKIE['user'];
+        ?>
         <script>
-            
             window.location.replace('/BD2-practica/<?php echo basename(__DIR__) ?>/main.php');
         </script>
     <?php }
