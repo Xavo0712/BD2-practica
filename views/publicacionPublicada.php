@@ -9,10 +9,12 @@
     <?php
     $locLink = $_GET['link'];
     $locText = $_GET['text'];
+    $locHist = $_GET['hist'];
+    $loggedUser = $_COOKIE['user'];
 
     $con = mysqli_connect("localhost", "root", "");
     $db = mysqli_select_db($con, "bd201");
-    $consulta = "INSERT INTO publicacio (idUser, data, link, text) VALUES ('" . $locNom . "', CURRENT_TIMESTAMP ,'" . $locLink . "','" . $locText . "')";
+    $consulta = "INSERT INTO publicacio (idUser, idHist, data, link, text) VALUES ('" . $loggedUser . "', '" . $locHist . "' , CURRENT_TIMESTAMP ,'" . $locLink . "','" . $locText . "')";
     $resultado = mysqli_query($con, $consulta);
     ?>
 
@@ -22,4 +24,5 @@
     </div>
 
 </body>
+
 </html>
