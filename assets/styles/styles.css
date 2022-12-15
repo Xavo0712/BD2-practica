@@ -289,6 +289,15 @@
     text-align: left;
 }
 
+.profileBlock img:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.username {
+    font-weight: bold;
+}
+
 .post {
     height: auto !important;
     padding-top: 10px;
@@ -308,6 +317,10 @@
     border-radius: 15%;
 }
 
+.post p {
+    color: #ffffff !important;
+}
+
 /* SCROLLBARS */
 .panel ::-webkit-scrollbar {
     width: 5px;
@@ -325,6 +338,7 @@
     background: rgb(165, 24, 24);
 }
 
+
 .un {
     width: auto;
     margin: auto;
@@ -339,12 +353,99 @@
     outline: none;
     box-sizing: border-box;
     border: 2px solid rgba(0, 0, 0, 0.02);
+
+.userPic {
+    border-radius:35%;
+}
+
+.postInfo {
+    border: 1px solid #161515;
+}
+
+.postInfo .row {
+    height: auto !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+
+.postInfo .postImage {
+    height: 400px;
+    width: auto;
+    border-radius: 10%;
+}
+
+.post-writer {
+    border-top: 2px solid #4e0a0a;
+    border-left: 1px solid #161515;
+    border-right: 1px solid #161515;
+}
+
+.post-writer input {
+    width: 95%;
+    color: white;
+    border: 2px solid #be1818 !important;
+    border-radius: 20px;
+    padding: 10px;
+    margin-left: 2.5%;
+    background-color: #e25555;
+}
+
+.post-writer input:focus {
+    outline: none !important;
+    border: 2px solid !important;
+    background-color: #e25555;
+}
+
+.post-writer input::placeholder {
+    color: white !important;
+}
+
+.postComments {
+    border: 1px solid #161515;
+}
+
+.postComments .row {
+    --bs-gutter-x: 0;
+}
+
+.comment {
+    border-bottom: 1px solid #161515;
+}
+
+.comment .row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.modal {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.modal-content {
+    background-color: #332f2f;
+}
+
+.modal-body input{
+    background-color:#4e0a0a;
+    color:#ffffff;
+    border:2px solid #161515;
+    width: auto;
+    margin: auto;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
     text-align: center;
     margin-bottom: 27px;
     font-family: 'Ubuntu', sans-serif;
     display: flex;
     justify-content: center;
 }
+
 
 button[type=submit] {
     width: auto;
@@ -367,4 +468,34 @@ button[type=submit] {
     text-align: center;
     display: flex;
     transition: 0.2s;
+}
+.modal-body input:focus{
+    border:2px solid #ffffff;
+}
+
+.btnSave {
+    background-color:#4e0a0a;
+    border:1px solid #161515;
+}
+
+.btnSave:hover {
+    background-color:#4e0a0a!important;
+    border:1px solid #161515!important;
+}
+
+.errorMsg {
+    color:white;
+    display: none;
+}
+
+.carousel a{
+    margin:0;
+}
+
+.carousel .row{
+    --bs-gutter-x:0;
+}
+
+.data {
+    text-align: end;
 }
