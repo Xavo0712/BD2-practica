@@ -316,5 +316,32 @@
 }
 
 .userPic {
-    border-radius:35%;
+    border-radius: 35%;
+}
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: white;
+    
+}
+
+#exampleFormHistories {   
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+}
+
+.cancelbtn{
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 15, 15));
 }

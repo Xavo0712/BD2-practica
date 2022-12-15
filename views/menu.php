@@ -7,7 +7,7 @@
     <a href="profile.php">Mi Perfil</a>
     <a href="chatPage.php">Chats</a>
     <a href="#">Crear Publicación</a>
-    <a href="#">Crear Historia</a>
+    <a href="historiaPage.php">Crear Historia</a>
 </div>
 
 <script>
