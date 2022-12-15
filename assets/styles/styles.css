@@ -338,10 +338,18 @@
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: 0.375rem;
+    display: inline-block;
 }
 
 .cancelbtn{
     border-radius: 5em;
     color: #fff;
     background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 15, 15));
+    font-size: 13px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    padding-bottom: 15px;
+    text-align: center;
 }

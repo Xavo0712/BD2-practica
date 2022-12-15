@@ -11,11 +11,11 @@
         <option selected value="value0">Publica</option>
         <option value="value1" ">Privada</option>
       </select><br>
+    
 
-
-      <div>
-      <a href="main.php"><button class="cancelbtn" type="button" >Cancelar</button></a>
-      <button type="submit" name="boton_crear">Crear historia </button>
+    <div class="linea">
+      <a href="profile.php"><button class="cancelbtn" type="button" >Cancelar</button></a>
+      <button type="submit" name="boton_crear" style="display: inline-block!important;">Crear historia </button>
       </div>     
     </form>
   </div>
