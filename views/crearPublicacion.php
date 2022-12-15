@@ -15,6 +15,7 @@
 
         <div class="main" style="margin: bottom 500px;">
             <p class="sign" style="font-size: 40px;" align="center">Crear Publicació</p>
+            <h3 class="sign" style="font-size: 20px;" align="center">- Un dels 2 camps (o els 2) ha d'omplir-se</h3>
             <form action="/BD2-practica/<?php echo basename(__DIR__) ?>/publicacionPublicada.php" class="form1"
                 method="get">
                 <input name="link" class="un " type="text" align="center" placeholder="Link de la imatge">
@@ -22,7 +23,7 @@
                 <p class="sign" align="center">Afegir a una història</p>
                 <select name="hist" class="form-select" style="width: auto; margin-left: 42.5%;"
                     aria-label="Default select example">
-                    <option disabled selected value>Històries</option>
+                    <option disabled selected value>No afegir</option>
                     <?php
                         foreach($resultado as $m) {
                     ?>
