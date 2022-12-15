@@ -15,9 +15,7 @@
       $userChats = array();
       $loggedUser = $_COOKIE['user']; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
-      $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, senders.imagen AS sImg, receivers.idUser AS rId, receivers.username AS receiver, receivers.imagen AS rImg, missatge.idMsg, missatge.text, missatge.timeSent 
-      FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
-      JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser ORDER BY missatge.timeSent;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
+      $query = DB::run("CALL getChats(?)", [$loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
       $statement = $query->fetchAll(PDO::FETCH_ASSOC);
       //Washing statement so it only contains last message of each chat of current user
       $lastMsgs = array();

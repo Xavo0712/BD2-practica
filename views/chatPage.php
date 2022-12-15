@@ -1,3 +1,18 @@
+<?php
+//Functions
+function checkEqual($array, $rowCheck, $rowName)
+{
+    $notInside = true;
+    $once = false;
+    foreach ($array as $row) {
+        if ($row[$rowName] == $rowCheck[$rowName]) {
+            $notInside = false;
+        }
+    }
+    return $notInside;
+}
+
+?>
 <div style="min-width: 100%">
     <?php require_once __DIR__ . "/header.php" ?>
 
@@ -5,14 +20,11 @@
         <div class="row">
             <div class="panel panel-default col-lg-6">
                 <div id="chats" style="overflow-y:scroll; height:875px;">
-
                     <?php
                     $userChats = array();
                     $loggedUser = $_COOKIE['user']; //poner como storedProcedure en mysql, SELECT ENORME
                     $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
-                    $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, senders.imagen AS sImg, receivers.idUser AS rId, receivers.username AS receiver, receivers.imagen AS rImg, missatge.idMsg, missatge.text, missatge.timeSent 
-      FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
-      JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser ORDER BY missatge.timeSent;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
+                    $query = DB::run("CALL getChats(?)", [$loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
                     $statement = $query->fetchAll(PDO::FETCH_ASSOC);
                     //Washing statement so it only contains last message of each chat of current user
                     $lastMsgs = array();
@@ -24,7 +36,7 @@
                             if ((($check['sId'] == $row['sId'] &&
                                     $check['rId'] == $row['rId']) ||
                                     ($check['sId'] == $row['rId'] && $check['rId'] == $row['sId'])) &&
-                                $check['timeSent'] > $row['timeSent']
+                                $check['timeSent'] > $row['timeSent'] && checkEqual($lastMsgs, $check, 'timeSent')
                             ) {
                                 $push = false;
                             }
@@ -121,6 +133,7 @@ function enterMessage(event, id, sender, receiver) {
             },
             success: function() {
                 console.log("Message sent successfully")
+                console.log("Message was: " + msg);
             }
         });
         var idN = id.substr(10);
