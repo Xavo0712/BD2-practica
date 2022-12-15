@@ -23,11 +23,11 @@
                 <p class="sign" align="center">Afegir a una història</p>
                 <select name="hist" class="form-select" style="width: auto; margin-left: 42.5%;"
                     aria-label="Default select example">
-                    <option disabled selected value>No afegir</option>
+                    <option selected value>No afegir</option>
                     <?php
                         foreach($resultado as $m) {
                     ?>
-                    <option value="<?php echo $m['idHist'];?>"><?php echo $m['titol'];?></option>
+                    <option value="<?php echo $m['idHist'];?>"><?php echo $m['text'];?></option>
                     <?php
                         }
                     ?>

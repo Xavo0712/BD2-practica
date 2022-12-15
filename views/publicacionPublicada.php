@@ -9,14 +9,14 @@
     <?php
     $locLink = $_GET['link'];
     $locText = $_GET['text'];
-    if(isset($_GET['hist'])) {
+    if($_GET['hist'] != "") {
         $locHist = $_GET['hist'];
     }
     $loggedUser = $_COOKIE['user'];
 
     $con = mysqli_connect("localhost", "root", "");
     $db = mysqli_select_db($con, "bd201");
-    if(isset($_GET['hist'])) {
+    if($_GET['hist'] != "") {
         $consulta = "INSERT INTO publicacio (idUser, idHist, data, link, text) VALUES ('" . $loggedUser . "', '" . $locHist . "' , CURRENT_TIMESTAMP ,'" . $locLink . "','" . $locText . "')";
     }
     else {
@@ -26,7 +26,7 @@
     ?>
 
     <div class="main">
-        <p class="sign" align="center">Publicació registrada correctament</p>
+        <p class="sign" align="center"> Publicació registrada correctament</p>
         <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
     </div>
 

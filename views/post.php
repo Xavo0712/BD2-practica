@@ -27,6 +27,7 @@
                         </div>
                     </div>
                     <div class="row">
+                        <p><?php echo $postInfo['text']?></p>
                         <img class="postImage" src=<?php echo "\"" . $postInfo['link'] . "\"" ?> max-height="200px" max-width="200px">
                         <p class="data"><?php echo $postInfo['data'] ?></p>
                     </div>

@@ -35,6 +35,7 @@
                                 </div>
                             </div>
                             <div class=\"row\">
+                                <p>". $post['text'] ."</p>
                                 <img class=\"postImage\" src=\"" . $post['link'] . "\" max-height=\"200px\" max-width=\"200px\">
                                 <p class=\"data\">". $post['data'] ."</p>
                             </div>

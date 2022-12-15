@@ -16,7 +16,7 @@
     $db = mysqli_select_db($con, "bd201");
 
     if($locLink != "" && $locTitol != "") {
-    $consulta = "INSERT INTO historia (tipus, idUser, titol, link) VALUES ('" . $locPriv . "', '" . $loggedUser . "' , '" . $locTitol . "' ,'" . $locLink . "')";
+    $consulta = "INSERT INTO historia (tipus, idUser, text, img, data) VALUES ('" . $locPriv . "', '" . $loggedUser . "' , '" . $locTitol . "' ,'" . $locLink . "', CURRENT_TIMESTAMP)";
     $resultado = mysqli_query($con, $consulta);
     }
     ?>
