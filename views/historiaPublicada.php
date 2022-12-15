@@ -14,15 +14,35 @@
 
     $con = mysqli_connect("localhost", "root", "");
     $db = mysqli_select_db($con, "bd201");
-    $consulta = "INSERT INTO historia (tipus, idUser, titol, link) VALUES ('" . $locPriv . "', '" . $loggedUser . "' , '" . $locTitol . "' ,'" . $locLink . "')";
 
+    if($locLink != "" && $locTitol != "") {
+    $consulta = "INSERT INTO historia (tipus, idUser, titol, link) VALUES ('" . $locPriv . "', '" . $loggedUser . "' , '" . $locTitol . "' ,'" . $locLink . "')";
     $resultado = mysqli_query($con, $consulta);
+    }
     ?>
 
+
+    <!-- Si els camps estan plens-->
+    <?php
+    if($locLink != "" && $locTitol != "") { ?>
     <div class="main">
         <p class="sign" align="center">Història registrada correctament</p>
         <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
     </div>
+    <?php
+                        }
+                    ?>
+    <?php
+    if($locLink == "" || $locTitol == "") {
+    ?>
+    <div class="main">
+        <p class="sign" align="center">Història NO registrada, omple tots els camps</p>
+        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
+    </div>
+    <?php
+                        }
+                    ?>
+
 
 </body>
 
