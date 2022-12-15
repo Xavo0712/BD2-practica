@@ -353,6 +353,7 @@
     outline: none;
     box-sizing: border-box;
     border: 2px solid rgba(0, 0, 0, 0.02);
+}
 
 .userPic {
     border-radius:35%;
