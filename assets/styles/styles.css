@@ -380,9 +380,12 @@
 }
 
 .comment {
-    margin-top:10px;
-    margin-bottom:10px;
     border-bottom: 1px solid #161515;
+}
+
+.comment .row {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .modal {

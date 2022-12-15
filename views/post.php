@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row panel-footer post-writer">
-                    <input id="postWriter" placeholder="Escriba un mensaje"></input>
+                    <input id="postWriter" placeholder="Escriba un mensaje" onkeypress="comment(event, <?php echo $postId ?>)"></input>
                 </div>
                 <div class="row">
                     <div class="panel panel-default postComments" style="overflow-y:auto; height:800px;">
@@ -77,4 +77,38 @@
         $('.profileStories').css('display', 'none');
         $('.profilePosts').css('display', 'block');
     });
+
+    function comment(event, postId) {
+        if (event.keyCode == 13) {
+            var comment = $('#postWriter').val();
+            $.ajax({
+                url: "../server/commentInsert.php",
+                type: "GET",
+                data: {
+                    text: comment,
+                    idUser: <?php echo $loggedUser?>,
+                    idPub: postId
+                },
+                success: function() {
+                    console.log("Reponse published successfully")
+                    $('.postComments').prepend(
+                        "<div class=\"row comment\">",
+                            "<div class=\"row\">",
+                                "<div class=\"col-lg-1\">",
+                                    "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen']?> \" width=\"75px\" height=\"75px\"/>",
+                                "</div>",
+                                "<div class=\"col-lg-1\">",
+                                    "<p class=\"username\">@ <?php echo $loggedUserInfo['username']?> </p>",
+                                "</div>",
+                            "</div>",
+                            "<div class=\"row\">",
+                                "<p>" + comment + "</p>",
+                            "</div>",
+                        "</div>");
+                    $('#postWriter').val("");
+                }
+            });
+
+        }
+    }
 </script>
