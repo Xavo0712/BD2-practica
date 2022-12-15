@@ -10,7 +10,7 @@
     $postInfo = DB::run("SELECT * FROM publicacio WHERE idPub = ?", [$postId])->fetchAll(PDO::FETCH_ASSOC)[0];
     $postUser = DB::run("SELECT * FROM usuari WHERE idUser = ?", [$postInfo['idUser']])->fetchAll(PDO::FETCH_ASSOC)[0];
     $commentsInfo = DB::run("SELECT usuari.username, usuari.imagen, resposta.text, resposta.data FROM resposta 
-        JOIN usuari ON resposta.idUser = usuari.idUser WHERE idPub = ?", [$postId])->fetchAll(PDO::FETCH_ASSOC);
+        JOIN usuari ON resposta.idUser = usuari.idUser WHERE idPub = ? ORDER BY data DESC", [$postId])->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
     <body class="mainBody">
@@ -28,6 +28,7 @@
                     </div>
                     <div class="row">
                         <img class="postImage" src=<?php echo "\"" . $postInfo['link'] . "\"" ?> max-height="200px" max-width="200px">
+                        <p class="data"><?php echo $postInfo['data'] ?></p>
                     </div>
                 </div>
                 <div class="row panel-footer post-writer">
@@ -48,6 +49,7 @@
                                     </div>
                                     <div class=\"row\">
                                         <p>" . $comment['text'] . "</p>
+                                        <p class=\"data\">".$comment['data']. "</p>
                                     </div>
                                 </div>";
                         }
@@ -90,20 +92,24 @@
                     idPub: postId
                 },
                 success: function() {
-                    console.log("Reponse published successfully")
+                    console.log("Reponse published successfully");
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    var day = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate();
                     $('.postComments').prepend(
-                        "<div class=\"row comment\">",
-                            "<div class=\"row\">",
-                                "<div class=\"col-lg-1\">",
-                                    "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen']?> \" width=\"75px\" height=\"75px\"/>",
-                                "</div>",
-                                "<div class=\"col-lg-1\">",
-                                    "<p class=\"username\">@ <?php echo $loggedUserInfo['username']?> </p>",
-                                "</div>",
-                            "</div>",
-                            "<div class=\"row\">",
-                                "<p>" + comment + "</p>",
-                            "</div>",
+                        "<div class=\"row comment\">" +
+                            "<div class=\"row\">"+
+                                "<div class=\"col-lg-1\">"+
+                                    "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen']?> \" width=\"75px\" height=\"75px\"/>"+
+                                "</div>"+
+                                "<div class=\"col-lg-1\">"+
+                                    "<p class=\"username\">@ <?php echo $loggedUserInfo['username']?> </p>"+
+                                "</div>"+
+                            "</div>"+
+                            "<div class=\"row\">"+
+                                "<p>" + comment + "</p>"+
+                                "<p class=\"data\">" + day + " " + time +"</p>"+
+                            "</div>"+
                         "</div>");
                     $('#postWriter').val("");
                 }

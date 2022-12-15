@@ -434,3 +434,15 @@
     color:white;
     display: none;
 }
+
+.carousel a{
+    margin:0;
+}
+
+.carousel .row{
+    --bs-gutter-x:0;
+}
+
+.data {
+    text-align: end;
+}

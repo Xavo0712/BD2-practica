@@ -6,16 +6,10 @@
     $loggedUser = $_COOKIE['user']; //paco as user for test purpouse
     $loggedUserInfo = DB::run("SELECT * FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0];
 
-    $allUserPosts = DB::run("SELECT link AS img, text AS text, publicacio.idPub FROM publicacio 
-        JOIN r_reenv ON (r_reenv.idPub = publicacio.idPub AND r_reenv.idUser = ?) OR (publicacio.idUser = ? AND publicacio.idHist IS NULL);", [$loggedUser, $loggedUser])->fetchAll(PDO::FETCH_ASSOC);
+    $allUserPosts = DB::run("SELECT link AS img, text, publicacio.idPub, r_reenv.data FROM publicacio JOIN r_reenv ON (r_reenv.idPub = publicacio.idPub AND r_reenv.idUser = ?) UNION 
+        SELECT link as img, text, publicacio.idPub, publicacio.data FROM publicacio WHERE (publicacio.idUser = ? AND publicacio.idHist IS NULL);", [$loggedUser, $loggedUser])->fetchAll(PDO::FETCH_ASSOC);
 
-    $allUserStoriesIds = DB::run("SELECT idHist FROM historia WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC);
-    $allUserStories = array();
-    foreach ($allUserStoriesIds as $id) {
-        $postsInStory = DB::run("SELECT link AS img, text AS text, idPub, idHist FROM publicacio
-            WHERE idHist = ?", [$id['idHist']])->fetchAll(PDO::FETCH_ASSOC);
-        array_push($allUserStories, $postsInStory);
-    }
+    $allUserStories = DB::run("SELECT * FROM historia WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
     <body class="mainBody">
@@ -41,6 +35,7 @@
                                     <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
                                         <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
+                                        <p class=\"data\">". $post['data'] ."</p>
                                     </div>
                                 </a>";
                     }
@@ -48,30 +43,14 @@
                 </div>
                 <div class="panel panel-default profileStories" style="display:none; overflow-y:auto; height:800px;">
                     <?php
-                    foreach ($allUserStories as $story) {
-                        $primero = false;
-                        echo "<div id=\"story" . $story[0]['idHist'] . "\" class=\"carousel slide\" data-ride=\"carousel\">
-                            <a class=\"carousel-control-prev\" role=\"button\" data-slide=\"prev\">
-                                <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>
-                                <span class=\"sr-only\">Previous</span>
-                            </a>
-                            <div class=\"carousel-inner\">";
-                        foreach ($story as $post) {
-
-                            echo "  <a href=\"post.php?postId=" . $post['idPub'] . "\">
-                                        <div id=\"post" . $post['idPub'] . "\" class=\"carousel-item row post " . (($primero == false) ? "active" : "") . "\">
-                                            <p>" . $post['text'] . "</p>
-                                            <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
-                                        </div>
-                                    </a>";
-                            $primero = true;
-                        }
-                        echo "</div>
-                                <a class=\"carousel-control-next\" role=\"button\" data-slide=\"next\">
-                                    <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>
-                                    <span class=\"sr-only\">Next</span>
-                                </a>
-                            </div>";
+                    foreach($allUserStories as $story) {
+                        echo "  <a href=\"story.php?storyId=" . $story['idHist'] . "&userId=". $story['idUser']."\">
+                                    <div id=\"story" . $story['idHist'] . "\" class=\"row post\">
+                                        <p>" . $story['text'] . "</p>
+                                        <img src=\"" . $story['img'] . "\" max-height=\"200px\" max-width=\"200px\">
+                                        <p class=\"data\">". $story['data'] ."</p>
+                                    </div>
+                                </a>";
                     }
                     ?>
                 </div>
