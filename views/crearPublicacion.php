@@ -2,6 +2,15 @@
 <div style="min-width: 100%">
     <?php require_once __DIR__ . "/header.php" ?>
 
+    <?php
+    $loggedUser = $_COOKIE['user'];
+
+    $con = mysqli_connect("localhost", "root", "");
+    $db = mysqli_select_db($con, "bd201");
+    $consulta = "SELECT * FROM historia WHERE idUser = $loggedUser";
+    $resultado = mysqli_query($con, $consulta);
+    ?>
+
     <body class="mainBody">
 
         <div class="main" style="margin: bottom 500px;">
@@ -11,11 +20,16 @@
                 <input name="link" class="un " type="text" align="center" placeholder="Link de la imatge">
                 <input name="text" class="un " type="text" align="center" placeholder="Text">
                 <p class="sign" align="center">Afegir a una història</p>
-                <select name="hist" class="form-select" style="width: auto; margin-left: 43.5%;"
+                <select name="hist" class="form-select" style="width: auto; margin-left: 42.5%;"
                     aria-label="Default select example">
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option disabled selected value>Històries</option>
+                    <?php
+                        foreach($resultado as $m) {
+                    ?>
+                    <option value="<?php echo $m['idHist'];?>"><?php echo $m['titol'];?></option>
+                    <?php
+                        }
+                    ?>
                 </select>
                 <button type="submit" class="registerButton">CREAR</button>
         </div>

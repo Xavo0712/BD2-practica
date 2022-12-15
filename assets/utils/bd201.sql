@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 15-12-2022 a les 00:07:55
+-- Temps de generació: 15-12-2022 a les 12:50:15
 -- Versió del servidor: 10.4.18-MariaDB
 -- Versió de PHP: 8.0.3
 
@@ -50,10 +50,11 @@ CREATE TABLE `historia` (
 --
 
 INSERT INTO `historia` (`idHist`, `tipus`, `idUser`, `titol`) VALUES
-(1, 1, 5, ''),
-(2, 1, 5, ''),
-(3, 1, 5, ''),
-(4, 1, 5, 'ciutats');
+(4, 1, 5, 'ciutats'),
+(5, 1, 5, 'menjars'),
+(6, 1, 5, 'esport'),
+(7, 1, 5, 'fotos'),
+(8, 1, 5, 'familia');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE `missatge` (
 CREATE TABLE `publicacio` (
   `idPub` int(11) NOT NULL,
   `data` datetime NOT NULL,
-  `idHist` int(11) NOT NULL,
+  `idHist` int(11) DEFAULT NULL,
   `link` char(255) NOT NULL,
   `text` char(255) NOT NULL,
   `idUser` int(11) NOT NULL
@@ -89,7 +90,12 @@ CREATE TABLE `publicacio` (
 --
 
 INSERT INTO `publicacio` (`idPub`, `data`, `idHist`, `link`, `text`, `idUser`) VALUES
-(1, '2022-12-15 00:03:53', 2, '333', '333', 5);
+(2, '2022-12-15 12:34:26', 6, 'aevaervar', '', 5),
+(3, '2022-12-15 12:35:47', 4, 'rtnbsrtb', 'srtbsrtb', 5),
+(6, '2022-12-15 12:45:14', 5, 'wevw', 'wevwe', 5),
+(7, '2022-12-15 12:46:38', 7, 'srtbsrt', '', 5),
+(10, '2022-12-15 12:49:38', NULL, 'kkk', 'kkk', 5),
+(11, '2022-12-15 12:49:51', NULL, 'aervaerv', '', 5);
 
 -- --------------------------------------------------------
 
@@ -201,7 +207,7 @@ ALTER TABLE `usuari`
 -- AUTO_INCREMENT per la taula `historia`
 --
 ALTER TABLE `historia`
-  MODIFY `idHist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idHist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la taula `missatge`
@@ -213,7 +219,7 @@ ALTER TABLE `missatge`
 -- AUTO_INCREMENT per la taula `publicacio`
 --
 ALTER TABLE `publicacio`
-  MODIFY `idPub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la taula `resposta`
