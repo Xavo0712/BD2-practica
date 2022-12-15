@@ -275,6 +275,11 @@
     text-align: left;
 }
 
+.profileBlock img:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
 .username {
     font-weight: bold;
 }
@@ -378,4 +383,51 @@
     margin-top:10px;
     margin-bottom:10px;
     border-bottom: 1px solid #161515;
+}
+
+.modal {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.modal-content {
+    background-color: #332f2f;
+}
+
+.modal-body input{
+    background-color:#4e0a0a;
+    color:#ffffff;
+    border:2px solid #161515;
+    width: auto;
+    margin: auto;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.modal-body input:focus{
+    border:2px solid #ffffff;
+}
+
+.btnSave {
+    background-color:#4e0a0a;
+    border:1px solid #161515;
+}
+
+.btnSave:hover {
+    background-color:#4e0a0a!important;
+    border:1px solid #161515!important;
+}
+
+.errorMsg {
+    color:white;
+    display: none;
 }

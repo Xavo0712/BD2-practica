@@ -21,7 +21,7 @@
     <body class="mainBody">
         <div class="row">
             <div class="panel panel-default col-lg-6 profileBlock">
-                <img style="margin-left:33%; margin-top:20px;" class="userPic" src=<?php echo "\"" . $loggedUserInfo['imagen'] . "\"" ?> width="300px" height="300px" />
+                <img id="profilePic" style="margin-left:33%; margin-top:20px;" class="userPic" src=<?php echo "\"" . $loggedUserInfo['imagen'] . "\"" ?> width="300px" height="300px" />
                 <div class="row">
                     <p class="profileInfo username">@<?php echo $loggedUserInfo['username'] ?></p>
                     <p class="profileInfo"><?php echo $loggedUserInfo['nom'] ?></p>
@@ -37,7 +37,7 @@
                 <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px;">
                     <?php
                     foreach ($allUserPosts as $post) {
-                        echo "  <a href=\"post.php?postId=". $post['idPub'] ."\">
+                        echo "  <a href=\"post.php?postId=" . $post['idPub'] . "\">
                                     <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
                                         <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
@@ -58,8 +58,8 @@
                             <div class=\"carousel-inner\">";
                         foreach ($story as $post) {
 
-                            echo "  <a href=\"post.php?postId=". $post['idPub'] ."\">
-                                        <div id=\"post" . $post['idPub'] . "\" class=\"carousel-item row post ".(($primero == false)? "active" : "" )."\">
+                            echo "  <a href=\"post.php?postId=" . $post['idPub'] . "\">
+                                        <div id=\"post" . $post['idPub'] . "\" class=\"carousel-item row post " . (($primero == false) ? "active" : "") . "\">
                                             <p>" . $post['text'] . "</p>
                                             <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
                                         </div>
@@ -77,8 +77,27 @@
                 </div>
             </div>
         </div>
-</div>
-</body>
+        <div id="myModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cambiar Foto de Perfil</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="newPic" name="link" type="text" align="center" placeholder="Adjuntar enlace">
+                        <p class="errorMsg">Introduzca una url válida</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cambioFoto" type="button" class="btn btn-primary btnSave">Guardar cambios</button>
+                        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </div>
 
 <script>
@@ -98,5 +117,39 @@
     $('#postButton').click(function() {
         $('.profileStories').css('display', 'none');
         $('.profilePosts').css('display', 'block');
+    });
+
+    $('#myModal').on('shown.bs.modal', function() {
+        $('#myInput').trigger('focus')
+    });
+
+    $('#profilePic').click(function() {
+        $('#myModal').show();
+    });
+
+    $('.close').click(function() {
+        $('#myModal').hide();
+    });
+
+    $('#cambioFoto').click(function() {
+        var link = $('#newPic').val();
+        if (link == '') {
+            $('.errorMsg').show();
+        } else {
+            $('.errorMsg').hide();
+            $.ajax({
+                url: "../server/imgUpdate.php",
+                type: "GET",
+                data: {
+                    link: link,
+                    idUser: <?php echo $loggedUser;?>
+                },
+                success: function() {
+                    console.log("Pic updated successfully")
+                    $('#profilePic').attr('src', link);
+                    $('#myModal').hide();
+                }
+            });
+        }
     });
 </script>
