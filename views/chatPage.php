@@ -30,8 +30,6 @@ function checkEqual($array, $rowCheck, $rowName)
                     $lastMsgs = array();
                     foreach ($statement as $row) {
                         $push = true;
-                        $currDate = new Datetime("now");
-                        $time = 10; //date('i',  $currDate->format('Y-m-d H:i:s') - $check['timeSent']);
                         foreach ($statement as $check) {
                             if ((($check['sId'] == $row['sId'] &&
                                     $check['rId'] == $row['rId']) ||
@@ -55,6 +53,7 @@ function checkEqual($array, $rowCheck, $rowName)
                             $otherUserId = $row['sId'];
                             $otherUserImg = $row['sImg'];
                         }
+                        $time = substr($row['lastTime'], 3, 2);
                         array_push($userChats, $otherUserId);
                         echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">\n";
                         echo "  <div class=\"userPic col-lg-2\">\n";
@@ -68,12 +67,18 @@ function checkEqual($array, $rowCheck, $rowName)
                         echo $row['text'] . "\n";
                         echo "    </div>\n";
                         echo "  </div>\n";
-                        echo "  <div class=\"row col-lg-2\">\n";
-                        echo "    <div class=\"messageInfo\">\n";
-                        echo "      " . $time . " min\n"; //ya si, poner la fecha
-                        echo "    </div>\n";
-                        echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" style=\"width:auto;\" height=\"20px\" />\n";
-                        echo "  </div>\n";
+                        if ($row['leido'] == 0) {
+                            echo "  <div id=\"seenMsg" . $otherUserId . "\" class=\"row col-lg-2\" style=\"display:block;\">\n";
+                            echo "    <div class=\"messageInfo\">\n";
+                            if ($time == "00") {
+                                echo "      Just now\n";
+                            } else {
+                                echo "      " . $time . " min\n";
+                            }
+                            echo "    </div>\n";
+                            echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" style=\"width:auto;\" height=\"20px\" />\n";
+                            echo "  </div>\n";
+                        }
                         echo "</div>\n";
                     }
                     ?>
@@ -118,7 +123,23 @@ $('.chat-info').click(function() {
     console.log("Clicado: " + $(this).attr('id') + ", mostrando a " + '#chatPersonal' + $(this).attr('id'));
     $('.chatPersonal').css('display', 'none');
     $('#chatPersonal' + $(this).attr('id')).css('display', 'block');
+    $('#seenMsg' + $(this).attr('id')).css('display', 'none');
+    enterChat(<?php echo $loggedUser ?>, $(this).attr('id'));
 });
+
+function enterChat(sender, receiver) {
+    $.ajax({
+        url: "../server/seenUpdate.php",
+        type: "GET",
+        data: {
+            idS: sender,
+            idR: receiver
+        },
+        success: function() {
+            console.log("Seen sent successfully")
+        }
+    });
+}
 
 function enterMessage(event, id, sender, receiver) {
     if (event.keyCode == 13) {
