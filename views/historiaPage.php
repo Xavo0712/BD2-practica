@@ -11,7 +11,6 @@
         <option selected value="value0">Publica</option>
         <option value="value1" ">Privada</option>
       </select><br>
-    
 
     <div class="linea">
       <a href="profile.php"><button class="cancelbtn" type="button" >Cancelar</button></a>

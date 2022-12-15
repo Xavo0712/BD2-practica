@@ -8,6 +8,7 @@
 
     $tipo=$_POST['tipus'];
     //$titulo=$_POST['titulo'];
+    $loggedUser = $_COOKIE['user'];
 
     /*
     $con = mysqli_connect("localhost", "root", "");
@@ -16,5 +17,5 @@
     $resultado = mysqli_query($con, $consulta);
     */
 
-    DB::run("INSERT INTO historia (idHist,tipus,idUser) VALUES (?)", [$_POST['tipus']]);    
+    DB::run("INSERT INTO historia (idHist,tipus,idUser) VALUES (?,?)", [$_POST['tipus'],$loggedUser]);    
 ?>
