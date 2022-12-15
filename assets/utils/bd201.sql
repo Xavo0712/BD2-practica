@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 15-12-2022 a les 12:50:15
+-- Temps de generació: 15-12-2022 a les 15:40:06
 -- Versió del servidor: 10.4.18-MariaDB
 -- Versió de PHP: 8.0.3
 
@@ -42,19 +42,20 @@ CREATE TABLE `historia` (
   `idHist` int(11) NOT NULL,
   `tipus` tinyint(1) NOT NULL DEFAULT 0,
   `idUser` int(11) NOT NULL,
-  `titol` char(255) NOT NULL
+  `titol` char(255) NOT NULL,
+  `link` char(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Bolcament de dades per a la taula `historia`
 --
 
-INSERT INTO `historia` (`idHist`, `tipus`, `idUser`, `titol`) VALUES
-(4, 1, 5, 'ciutats'),
-(5, 1, 5, 'menjars'),
-(6, 1, 5, 'esport'),
-(7, 1, 5, 'fotos'),
-(8, 1, 5, 'familia');
+INSERT INTO `historia` (`idHist`, `tipus`, `idUser`, `titol`, `link`) VALUES
+(4, 1, 5, 'ciutats', NULL),
+(5, 1, 5, 'menjars', NULL),
+(6, 1, 5, 'esport', NULL),
+(7, 1, 5, 'fotos', NULL),
+(8, 1, 5, 'familia', NULL);
 
 -- --------------------------------------------------------
 
