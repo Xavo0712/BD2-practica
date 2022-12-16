@@ -32,7 +32,10 @@ $(document).ready(function() {
 
     for (let i = 0; i < data.length; i++) {
         user = data[i];
-        $("#users").append("<option value='" + user.idUser + "'>" + user.username + "</option>")
+        const us = "<?php echo $_COOKIE['user']; ?>";
+        if (user.idUser != us) {
+            $("#users").append("<option value='" + user.idUser + "'>" + user.username + "</option>")
+        }
     }
 
     var select1 = document.querySelector('#users');
@@ -44,5 +47,4 @@ $(document).ready(function() {
 function handleSelect(elm) {
     window.location.replace("profile.php?idUser=" + elm.value);
 }
-
 </script>
