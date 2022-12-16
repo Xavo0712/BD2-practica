@@ -220,8 +220,8 @@
             },
 
             success: function(){
-                //alert("Publicació reenviada correctament")
-                $('#myModal2').hide();
+                alert("Publicació reenviada correctament")
+                //$('#myModal2').hide();
             }
             
         })
