@@ -22,8 +22,21 @@
             <div class="panel panel-default col-lg-6 profileBlock">
                 <img id="profilePic" style="margin-left:33%; margin-top:20px;" class="userPic" src=<?php echo "\"" . $profileUserInfo['imagen'] . "\"" ?> width="300px" height="300px" />
                 <div class="row">
-                    <p class="profileInfo username">@<?php echo $profileUserInfo['username'] ?></p>
-                    <p class="profileInfo"><?php echo $profileUserInfo['nom'] ?></p>
+                    <div class="col-lg-6">
+                        <p class="profileInfo username">@<?php echo $profileUserInfo['username'] ?></p>
+                        <p class="profileInfo"><?php echo $profileUserInfo['nom'] ?></p>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="profileInfo" style="font-weight:bold;" href="follow.php?idUser=<?php echo $profileUserInfo['idUser'] ?>">Seguidors</a>
+                        <?php if ($loggedUser != $profileUser) {
+                            if ($follows['follow'] == 1) {
+                                echo "<button class=\"btnFollow\" id=\"unfollow\">Dejar de seguir</button>";
+                            } else {
+                                echo "<button class=\"btnFollow\" id=\"follow\">Seguir</button>";
+                            }
+                        }
+                        ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div id="postButton" class="col-lg-6 buttonText">
@@ -136,6 +149,40 @@
                     console.log("Pic updated successfully")
                     $('#profilePic').attr('src', link);
                     $('#myModal').hide();
+                }
+            });
+        }
+    });
+
+    $('.btnFollow').click(function() {
+        if (this.id == "follow") {
+            $.ajax({
+                url: "../server/follow.php",
+                type: "GET",
+                data: {
+                    follower: <?php echo $loggedUser; ?>,
+                    following: <?php echo $profileUser; ?>
+                },
+                success: function() {
+                    console.log("Followed successfully")
+                    button = $('.btnFollow');
+                    button.attr("id", "unfollow");
+                    button.text("Dejar de Seguir");
+                }
+            });
+        } else {
+            $.ajax({
+                url: "../server/unfollow.php",
+                type: "GET",
+                data: {
+                    follower: <?php echo $loggedUser; ?>,
+                    following: <?php echo $profileUser; ?>
+                },
+                success: function() {
+                    console.log("Unollowed successfully")
+                    button = $('.btnFollow');
+                    button.attr("id", "follow");
+                    button.text("Seguir");
                 }
             });
         }

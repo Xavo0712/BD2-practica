@@ -285,6 +285,14 @@
     text-align: left;
 }
 
+a.profileInfo {
+    margin-left: 0;
+}
+
+a.profileInfo:hover {
+    color: white !important;
+}
+
 .profileBlock img:hover{
     cursor: pointer;
     opacity: 0.6;
@@ -504,4 +512,39 @@ button[type=submit] {
 
 .data {
     text-align: end;
+}
+
+.follower {
+    border-bottom: 1px solid #161515;
+}
+
+.follower:hover {
+    background-color: #332f2f;
+}
+
+.btnFollow {
+    width: auto;
+    margin: auto;
+    cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 15, 15));
+    border: 0;
+    font-weight: bold;
+    justify-content: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 30px;
+    font-size: 13px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    display: flex;
+}
+
+.btnFollow:hover {
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(88, 15, 15));
+    transition: 0.3s;
 }
