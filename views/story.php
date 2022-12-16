@@ -120,7 +120,6 @@
         if (event.keyCode == 13) {
             var comment = $('#postWriter').val();
             var postId = $.find('.active')[0].id.replace('post','');
-            debugger;
             $.ajax({
                 url: "../server/commentInsert.php",
                 type: "GET",
