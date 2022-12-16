@@ -53,9 +53,12 @@
                                     <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
                                         <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
+                                    <div id=\"btn-data-line\">    
                                         <p class=\"data\">" . $post['data'] . "</p>
+                                        <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button>
                                     </div>
-                                </a>";
+                                    </div>
+                                </a>";      
                     }
                     ?>
                 </div>
