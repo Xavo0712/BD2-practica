@@ -42,14 +42,25 @@
 
                 echo "
             <div class=\"imagen\">
-            <img class=\"perfilImagen\" src=\"" . $usuario['imagen'] . "\">
-            <div class=\"imagenCabecera\">
-            <h2>\"" . $usuario['username'] . "\"</h2>
-            <h2>\"" . $usuario['nom'] . "\"</h2>
+
+                <div class=\"imgTodo\">
+                    <img class=\"perfilImagen\" src=\"" . $usuario['imagen'] . "\">
+                    <div class=\"imagenCabecera\"><br />
+                        <h2> @". $usuario['username'] . "</h2>
+                        <h2>". $usuario['nom'] ."</h2>
+                    </div>
+                </div>
+                <div class=\"imgTodo2\">
+                    <div class=\"imgDescripcion\">
+                        <medium>". $usuario['telefon'] . "</medium>
+                        <medium>" . $usuario['correu'] . "</medium>
+                    </div>
+                    <div style=\"width:70px\">
+                        
+                    </div>
+                </div>
             </div>
-            </div>
-            <medium>\"" . $usuario['telefon'] . "\"</medium>
-            <medium>\"" . $usuario['correu'] . "\"</medium>";
+            ";
             }
             ?>
         </div>
@@ -57,9 +68,9 @@
             <?php
             foreach ($datosPublicacio as $publicacio) {
                 echo "
-                    <div class=\"row post\" id=\"post" . $publicacio['idPub'] . "\">     
+                    <div class=\"row post\" id=\"post" . $publicacio['idPub'] . "\"><br>     
                         <p>" . $publicacio['text'] . "</p>
-                        <img  class=\"imgPubli\" src=\"" . $publicacio['link'] . "\">
+                        <img  class=\"imgPubli\" src=\"" . $publicacio['link'] . "\"><br>
                         <p class=\"data\">" . $publicacio['data'] . "</p>          
                     </div>";
             }
