@@ -12,14 +12,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <select id="users" class="form-select">
+                        <select id="users" class="form-select" onchange="handleSelect(this)">
                             <option value="" selected>Cerca un usuari</option>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
-
     </body>
 </div>
 
@@ -41,4 +40,9 @@ $(document).ready(function() {
         search: true
     });
 });
+
+function handleSelect(elm) {
+    window.location.replace("profile.php?idUser=" + elm.value);
+}
+
 </script>
