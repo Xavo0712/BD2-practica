@@ -505,3 +505,8 @@ button[type=submit] {
 .data {
     text-align: end;
 }
+
+.mainThings {
+    display: grid;
+    width: 100%;
+}
