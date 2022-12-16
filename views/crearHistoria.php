@@ -2,6 +2,15 @@
 <div style="min-width: 100%">
     <?php require_once __DIR__ . "/header.php" ?>
 
+    <?php
+    $loggedUser = $_COOKIE['user'];
+
+    $con = mysqli_connect("localhost", "root", "");
+    $db = mysqli_select_db($con, "bd201");
+    $consulta = "SELECT * FROM historia WHERE idUser = $loggedUser";
+    $resultado = mysqli_query($con, $consulta);
+    ?>
+
     <body class="mainBody">
 
         <div class="main" style="margin: bottom 500px;">
