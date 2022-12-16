@@ -49,16 +49,16 @@
                 <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px;">
                     <?php
                     foreach ($allUserPosts as $post) {
-                        echo "  <a href=\"post.php?postId=" . $post['idPub'] . "\">
+                        echo "  
                                     <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
                                         <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
                                     <div id=\"btn-data-line\">    
                                         <p class=\"data\">" . $post['data'] . "</p>
-                                        <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button>
+                                        <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button>  
                                     </div>
                                     </div>
-                                </a>";      
+                                ";      
                     }
                     ?>
                 </div>
@@ -95,6 +95,22 @@
                     <div class="modal-footer">
                         <button id="cambioFoto" type="button" class="btn btn-primary btnSave">Guardar cambios</button>
                         <button type="button" class="btn btn-secondary close" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal2" class="modal" tabindex="-1" role="dialog" style="display:none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Publicació reenviada</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cambioFoto" type="button" class="btn btn-primary btnSave">Aceptar</button>
                     </div>
                 </div>
             </div>
@@ -192,4 +208,28 @@
             });
         }
     });
+
+    $('.btn-reenviar').click(function(){
+        var idPubButt=$(this).attr('attridHist')
+        $.ajax({
+            url: "../server/reenviar.php",
+            type:"GET",
+            data:{
+                idUserPub: <?php echo $loggedUser; ?>,
+                idPub:Number(idPubButt)
+            },
+
+            success: function(){
+                //alert("Publicació reenviada correctament")
+                $('#myModal2').hide();
+            }
+            
+        })
+    });
+
+    $('#myModal2').on('shown.bs.modal', function() {
+        $('#myInput').trigger('focus')
+    });
+
+    
 </script>

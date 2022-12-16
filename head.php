@@ -8,4 +8,5 @@
     <script src="/<?php echo basename(__DIR__) ?>/assets/js/jquery-3.6.1.min.js"></script>
     <script src="/<?php echo basename(__DIR__) ?>/assets/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/415d499f2b.js" crossorigin="anonymous"></script>
+    <script src="/BD2-practica/assets/utils/js_utils.js"></script>
 </head>

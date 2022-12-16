@@ -548,3 +548,37 @@ button[type=submit] {
     background: linear-gradient(to right, rgb(255, 255, 255), rgb(88, 15, 15));
     transition: 0.3s;
 }
+
+.btn-reenviar{
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 15, 15));
+    border-radius: 20px;
+    color: #fff;
+}
+
+.usuari{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: left;
+}
+
+.imagen{
+    display: flex;
+    flex-direction: row;
+}
+.perfilImagen{
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 150px;
+}
+
+.contenedor{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgPubli{
+    width: 300px !important;
+    height: 300px !important;
+}
