@@ -11,8 +11,39 @@ function checkEqual($array, $rowCheck, $rowName)
     }
     return $notInside;
 }
-
 ?>
+
+<script>
+function enterChat(sender, receiver) {
+    $.ajax({
+        url: "../server/seenUpdate.php",
+        type: "GET",
+        data: {
+            idS: sender,
+            idR: receiver
+        },
+        success: function() {
+            console.log("Seen sent successfully, sender: " + sender + ", receiver: " + receiver)
+        }
+    });
+}
+
+function enterChat(sender, receiver, logged) {
+    $.ajax({
+        url: "../server/seenUpdate.php",
+        type: "GET",
+        data: {
+            loggedUser: logged,
+            idS: sender,
+            idR: receiver
+        },
+        success: function() {
+            console.log("Seen sent successfully from chats")
+        }
+    });
+}
+</script>
+
 <div style="min-width: 100%">
     <?php require_once __DIR__ . "/header.php" ?>
 
@@ -48,10 +79,12 @@ function checkEqual($array, $rowCheck, $rowName)
                             $otherUser = $row['receiver'];
                             $otherUserId = $row['rId'];
                             $otherUserImg = $row['rImg'];
+                            $leido = $row['leidoE'];
                         } else {
                             $otherUser = $row['sender'];
                             $otherUserId = $row['sId'];
                             $otherUserImg = $row['sImg'];
+                            $leido = $row['leidoR'];
                         }
                         $time = substr($row['lastTime'], 3, 2);
                         array_push($userChats, $otherUserId);
@@ -67,7 +100,7 @@ function checkEqual($array, $rowCheck, $rowName)
                         echo $row['text'] . "\n";
                         echo "    </div>\n";
                         echo "  </div>\n";
-                        if ($row['leido'] == 0) {
+                        if ($leido == 0) {
                             echo "  <div id=\"seenMsg" . $otherUserId . "\" class=\"row col-lg-2\" style=\"display:block;\">\n";
                             echo "    <div class=\"messageInfo\">\n";
                             if ($time == "00") {
@@ -85,6 +118,9 @@ function checkEqual($array, $rowCheck, $rowName)
                 </div>
             </div>
             <div id="messages" class="panel panel-default col-lg-6" style="display:none;">
+                <?php $rootPath = $_SERVER['DOCUMENT_ROOT'];
+                $thisPath = dirname($_SERVER['PHP_SELF']);
+                $onlyPath = str_replace($rootPath, '', $thisPath); ?>
                 <?php
                 foreach ($userChats as $chat) {
                     echo    "<div id=\"chatPersonal" . $chat . "\" style=\"display:none;\" class=\"chatPersonal\">\n
@@ -93,10 +129,12 @@ function checkEqual($array, $rowCheck, $rowName)
                     foreach ($statement as $message) {
                         if ($message['sId'] == $currentChat || $message['rId'] == $currentChat) {
                             if ($message['sId'] == $loggedUser) {
+                                echo "<script>enterChat(" . $loggedUser . "," . $chat . "," . $loggedUser . ")</script>";
                                 echo "    <div class=\"sent-message\">\n";
                                 echo "    <p>" . $message['text'] . "</p>\n";
                                 echo "    </div>\n";
                             } else {
+                                echo "<script>enterChat(" . $chat . "," . $loggedUser . ")</script>";
                                 echo "    <div class=\"received-message\">\n";
                                 echo "    <p>" . $message['text'] . "</p>\n";
                                 echo "    </div>\n";
@@ -126,20 +164,6 @@ $('.chat-info').click(function() {
     $('#seenMsg' + $(this).attr('id')).css('display', 'none');
     enterChat(<?php echo $loggedUser ?>, $(this).attr('id'));
 });
-
-function enterChat(sender, receiver) {
-    $.ajax({
-        url: "../server/seenUpdate.php",
-        type: "GET",
-        data: {
-            idS: sender,
-            idR: receiver
-        },
-        success: function() {
-            console.log("Seen sent successfully")
-        }
-    });
-}
 
 function enterMessage(event, id, sender, receiver) {
     if (event.keyCode == 13) {
