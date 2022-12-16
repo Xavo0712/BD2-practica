@@ -168,6 +168,7 @@
                     button = $('.btnFollow');
                     button.attr("id", "unfollow");
                     button.text("Dejar de Seguir");
+                    <?php $follows['follow'] = 1;?>
                 }
             });
         } else {
@@ -183,6 +184,7 @@
                     button = $('.btnFollow');
                     button.attr("id", "follow");
                     button.text("Seguir");
+                    <?php $follows['follow'] = 0;?>
                 }
             });
         }
