@@ -7,7 +7,7 @@
 <body>
 
     <header>
-        <h1>UIBFLIX</h1>
+        <h1>UIBBER</h1>
     </header>
 
     <div class="main">

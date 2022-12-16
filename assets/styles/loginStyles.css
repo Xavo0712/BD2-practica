@@ -147,7 +147,7 @@ button[type=submit] {
     transition: 0.2s;
 }
 
-button:hover {
+button[type=submit]:hover {
     font-size: 20px;
     transition: 0.3s;
 }

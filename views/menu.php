@@ -4,10 +4,10 @@
 <div id="mySidenav" class="sidenav">
     <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="main.php">Inicio</a>
-    <a href="profile.php">Mi Perfil</a>
+    <a href="profile.php?idUser=<?php echo $_COOKIE['user']?>">Mi Perfil</a>
     <a href="chatPage.php">Chats</a>
-    <a href="#">Crear Publicación</a>
-    <a href="#">Crear Historia</a>
+    <a href="crearPublicacion.php">Crear Publicación</a>
+    <a href="crearHistoria.php">Crear Historia</a>
 </div>
 
 <script>

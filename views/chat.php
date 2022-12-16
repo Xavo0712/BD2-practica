@@ -81,8 +81,8 @@ function enterChat(sender, receiver, logged) {
 
         array_push($userChats, $otherUserId);
         echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">\n";
-        echo "  <div class=\"userPic col-lg-2\">\n";
-        echo "    <img src=\"" . $otherUserImg . "\" width=\"50px\" height=\"50px\" />\n";
+        echo "  <div class=\"col-lg-2\">\n";
+        echo "    <img class=\"userPic\" src=\"" . $otherUserImg . "\" width=\"50px\" height=\"50px\" />\n";
         echo "  </div>\n";
         echo "<div class=\"row col-lg-8\">\n";
         echo "    <div class=\"username\">\n";
@@ -136,6 +136,7 @@ function enterChat(sender, receiver, logged) {
     </div>
 </div>
 <?php } ?>
+</div>
 </div>
 
 <script>
