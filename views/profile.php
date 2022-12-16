@@ -3,22 +3,27 @@
     <?php require_once __DIR__ . "/chat.php" ?>
 
     <?php
-    $loggedUser = $_COOKIE['user']; //paco as user for test purpouse
-    $loggedUserInfo = DB::run("SELECT * FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0];
+    $loggedUser = $_COOKIE['user'];
 
+    $profileUser = $_GET['idUser'];
+    $profileUserInfo = DB::run("SELECT * FROM usuari WHERE idUser = ?", [$profileUser])->fetchAll(PDO::FETCH_ASSOC)[0];
     $allUserPosts = DB::run("SELECT link AS img, text, publicacio.idPub, r_reenv.data FROM publicacio JOIN r_reenv ON (r_reenv.idPub = publicacio.idPub AND r_reenv.idUser = ?) UNION 
-        SELECT link as img, text, publicacio.idPub, publicacio.data FROM publicacio WHERE (publicacio.idUser = ? AND publicacio.idHist IS NULL);", [$loggedUser, $loggedUser])->fetchAll(PDO::FETCH_ASSOC);
+        SELECT link as img, text, publicacio.idPub, publicacio.data FROM publicacio WHERE (publicacio.idUser = ? AND publicacio.idHist IS NULL);", [$profileUser, $profileUser])->fetchAll(PDO::FETCH_ASSOC);
 
-    $allUserStories = DB::run("SELECT * FROM historia WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC);
+    $allUserStories = DB::run("SELECT * FROM historia WHERE idUser = ?", [$profileUser])->fetchAll(PDO::FETCH_ASSOC);
+    $follows['follow'] = 1;
+    if ($loggedUser != $profileUser) {
+        $follows = DB::run("SELECT COUNT(*) AS follow FROM follow WHERE idUserFollower = ? AND idUserFollowing = ?", [$loggedUser, $profileUser])->fetchAll(PDO::FETCH_ASSOC)[0];
+    }
     ?>
 
     <body class="mainBody">
         <div class="row">
             <div class="panel panel-default col-lg-6 profileBlock">
-                <img id="profilePic" style="margin-left:33%; margin-top:20px;" class="userPic" src=<?php echo "\"" . $loggedUserInfo['imagen'] . "\"" ?> width="300px" height="300px" />
+                <img id="profilePic" style="margin-left:33%; margin-top:20px;" class="userPic" src=<?php echo "\"" . $profileUserInfo['imagen'] . "\"" ?> width="300px" height="300px" />
                 <div class="row">
-                    <p class="profileInfo username">@<?php echo $loggedUserInfo['username'] ?></p>
-                    <p class="profileInfo"><?php echo $loggedUserInfo['nom'] ?></p>
+                    <p class="profileInfo username">@<?php echo $profileUserInfo['username'] ?></p>
+                    <p class="profileInfo"><?php echo $profileUserInfo['nom'] ?></p>
                 </div>
                 <div class="row">
                     <div id="postButton" class="col-lg-6 buttonText">
@@ -35,7 +40,7 @@
                                     <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
                                         <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
-                                        <p class=\"data\">". $post['data'] ."</p>
+                                        <p class=\"data\">" . $post['data'] . "</p>
                                     </div>
                                 </a>";
                     }
@@ -43,14 +48,16 @@
                 </div>
                 <div class="panel panel-default profileStories" style="display:none; overflow-y:auto; height:800px;">
                     <?php
-                    foreach($allUserStories as $story) {
-                        echo "  <a href=\"story.php?storyId=" . $story['idHist'] . "&userId=". $story['idUser']."\">
+                    foreach ($allUserStories as $story) {
+                        if (($follows['follow'] == 1 && $story['tipus'] == 1) || $story['tipus'] == 0) {
+                            echo "  <a href=\"story.php?storyId=" . $story['idHist'] . "&userId=" . $story['idUser'] . "\">
                                     <div id=\"story" . $story['idHist'] . "\" class=\"row post\">
                                         <p>" . $story['text'] . "</p>
                                         <img src=\"" . $story['img'] . "\" max-height=\"200px\" max-width=\"200px\">
-                                        <p class=\"data\">". $story['data'] ."</p>
+                                        <p class=\"data\">" . $story['data'] . "</p>
                                     </div>
                                 </a>";
+                        }
                     }
                     ?>
                 </div>
@@ -103,7 +110,9 @@
     });
 
     $('#profilePic').click(function() {
-        $('#myModal').show();
+        if (<?php echo $loggedUser ?> == <?php echo $profileUser ?>) {
+            $('#myModal').show();
+        }
     });
 
     $('.close').click(function() {
@@ -121,7 +130,7 @@
                 type: "GET",
                 data: {
                     link: link,
-                    idUser: <?php echo $loggedUser;?>
+                    idUser: <?php echo $loggedUser; ?>
                 },
                 success: function() {
                     console.log("Pic updated successfully")

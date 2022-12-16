@@ -259,11 +259,7 @@
 
 .chat-info:hover {
     background-color: #818181;
-}
-
-.chat-info .username {
-    font-weight: bold;
-}
+}   
 
 .profileBlock {
     margin-left: 25%;
@@ -295,6 +291,7 @@
 }
 
 .username {
+    color: white!important;
     font-weight: bold;
 }
 
@@ -363,6 +360,10 @@
     border: 1px solid #161515;
 }
 
+.postInfo a{
+    margin-left: 0;
+}
+
 .postInfo .row {
     height: auto !important;
     padding-top: 10px;
@@ -404,6 +405,10 @@
 
 .postComments {
     border: 1px solid #161515;
+}
+
+.postComments a{
+    margin-left:0;
 }
 
 .postComments .row {

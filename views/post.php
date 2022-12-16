@@ -9,7 +9,7 @@
     $postId = $_GET['postId'];
     $postInfo = DB::run("SELECT * FROM publicacio WHERE idPub = ?", [$postId])->fetchAll(PDO::FETCH_ASSOC)[0];
     $postUser = DB::run("SELECT * FROM usuari WHERE idUser = ?", [$postInfo['idUser']])->fetchAll(PDO::FETCH_ASSOC)[0];
-    $commentsInfo = DB::run("SELECT usuari.username, usuari.imagen, resposta.text, resposta.data FROM resposta 
+    $commentsInfo = DB::run("SELECT usuari.idUser, usuari.username, usuari.imagen, resposta.text, resposta.data FROM resposta 
         JOIN usuari ON resposta.idUser = usuari.idUser WHERE idPub = ? ORDER BY data DESC", [$postId])->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
@@ -19,15 +19,17 @@
                 <div class="postInfo row">
                     <div class="row">
                         <div class="col-lg-1">
-                            <img class="userPic" src=<?php echo "\"" . $postUser['imagen'] . "\"" ?> width="75px" height="75px" />
+                            <a href="profile.php?idUser=<?php echo $postUser['idUser'] ?>">
+                                <img class="userPic" src=<?php echo "\"" . $postUser['imagen'] . "\"" ?> width="75px" height="75px" />
+                            </a>
                         </div>
                         <div class="col-lg-11">
-                            <p class="username">@<?php echo $postUser['username'] ?></p>
+                            <a href="profile.php?idUser=<?php echo $postUser['idUser'] ?>" class="username">@<?php echo $postUser['username'] ?></a>
                             <p><?php echo $postUser['nom'] ?></p>
                         </div>
                     </div>
                     <div class="row">
-                        <p><?php echo $postInfo['text']?></p>
+                        <p><?php echo $postInfo['text'] ?></p>
                         <img class="postImage" src=<?php echo "\"" . $postInfo['link'] . "\"" ?> max-height="200px" max-width="200px">
                         <p class="data"><?php echo $postInfo['data'] ?></p>
                     </div>
@@ -42,15 +44,17 @@
                             echo "  <div class=\"row comment\">
                                     <div class=\"row\">
                                         <div class=\"col-lg-1\">
-                                            <img class=\"userPic\" src=\"" . $comment['imagen'] . "\" width=\"75px\" height=\"75px\"/>
+                                            <a href=\"profile.php?idUser=" . $comment['idUser'] . "\">
+                                                <img class=\"userPic\" src=\"" . $comment['imagen'] . "\" width=\"75px\" height=\"75px\"/>
+                                            </a>
                                         </div>
                                         <div class=\"col-lg-1\">
-                                            <p class=\"username\">@" . $comment['username'] . "</p>
+                                            <a href=\"profile.php?idUser=" . $comment['idUser'] . "\" class=\"username\">@" . $comment['username'] . "</a>
                                         </div>
                                     </div>
                                     <div class=\"row\">
                                         <p>" . $comment['text'] . "</p>
-                                        <p class=\"data\">".$comment['data']. "</p>
+                                        <p class=\"data\">" . $comment['data'] . "</p>
                                     </div>
                                 </div>";
                         }
@@ -89,28 +93,30 @@
                 type: "GET",
                 data: {
                     text: comment,
-                    idUser: <?php echo $loggedUser?>,
+                    idUser: <?php echo $loggedUser ?>,
                     idPub: postId
                 },
                 success: function() {
                     console.log("Reponse published successfully");
                     var dt = new Date();
                     var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-                    var day = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate();
+                    var day = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
                     $('.postComments').prepend(
                         "<div class=\"row comment\">" +
-                            "<div class=\"row\">"+
-                                "<div class=\"col-lg-1\">"+
-                                    "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen']?> \" width=\"75px\" height=\"75px\"/>"+
-                                "</div>"+
-                                "<div class=\"col-lg-1\">"+
-                                    "<p class=\"username\">@ <?php echo $loggedUserInfo['username']?> </p>"+
-                                "</div>"+
-                            "</div>"+
-                            "<div class=\"row\">"+
-                                "<p>" + comment + "</p>"+
-                                "<p class=\"data\">" + day + " " + time +"</p>"+
-                            "</div>"+
+                        "<div class=\"row\">" +
+                        "<div class=\"col-lg-1\">" +
+                        "<a href=\"profile.php?idUser=\"<?php echo $loggedUser ?>\">" +
+                        "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen'] ?> \" width=\"75px\" height=\"75px\"/>" +
+                        "</a>" +
+                        "</div>" +
+                        "<div class=\"col-lg-1\">" +
+                        "<a href=\"profile.php?idUser=\"<?php echo $loggedUser ?>\" class=\"username\">@<?php echo $loggedUserInfo['username'] ?> </a>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class=\"row\">" +
+                        "<p>" + comment + "</p>" +
+                        "<p class=\"data\">" + day + " " + time + "</p>" +
+                        "</div>" +
                         "</div>");
                     $('#postWriter').val("");
                 }

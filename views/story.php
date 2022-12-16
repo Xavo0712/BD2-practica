@@ -25,17 +25,19 @@
                         $primero = false;
                         foreach ($storyPosts as $post) {
                             echo "  <div id=\"post" . $post['idPub'] . "\"class=\"carousel-item postInfo row " . (($primero == false) ? "active" : "") . "\">
-                            <div class=\"row\">
-                                <div class=\"col-lg-1\">
-                                    <img class=\"userPic\" src=\"" . $userInfo['imagen'] . "\" width=\"75px\" height=\"75px\" />
+                            <div class=\"row\" style=\"padding-left:20%\">
+                                <div class=\"col-lg-2\">
+                                    <a href=\"profile.php?idUser=".$userInfo['idUser']."\">
+                                        <img class=\"userPic\" src=\"" . $userInfo['imagen'] . "\" width=\"75px\" height=\"75px\" />
+                                    </a>
                                 </div>
-                                <div class=\"col-lg-11\">
-                                    <p class=\"username\">@" . $userInfo['username'] . "</p>
+                                <div class=\"col-lg-10\">
+                                    <a href=\"profile.php?idUser=".$userInfo['idUser']."\" class=\"username\">@" . $userInfo['username'] . "</a>
                                     <p>" . $userInfo['nom'] . "</p>
                                 </div>
                             </div>
                             <div class=\"row\">
-                                <p>". $post['text'] ."</p>
+                                <p style=\"padding-left:20%\">". $post['text'] ."</p>
                                 <img class=\"postImage\" src=\"" . $post['link'] . "\" max-height=\"200px\" max-width=\"200px\">
                                 <p class=\"data\">". $post['data'] ."</p>
                             </div>
@@ -64,7 +66,7 @@
 
 <script>
     $(document).ready(function() {
-        var id = $.find('.active')[0].id.slice(-1)
+        var id = $.find('.active')[0].id.replace('post','');
         loadComments(id);
     });
 
@@ -77,7 +79,7 @@
     });
 
     $('#storyCarousel').bind('slid.bs.carousel', function(e) {
-        var id = $.find('.active')[0].id.slice(-1)
+        var id = $.find('.active')[0].id.replace('post','');
         loadComments(id);
     });
 
@@ -95,11 +97,13 @@
                     $('.postComments').append("<div class=\"row comment\">" +
                         "<div class = \"row\">" +
                         "<div class = \"col-lg-1\">" +
+                        "<a href=\"profile.php?idUser=" + comment['idUser'] + "\">"+
                         "<img class = \"userPic\" src=\"" + comment['imagen'] + "\" width=\"75px\" height=\"75px\"/>" +
+                        "</a>" +
                         "</div>" +
                         "<div class = \"col-lg-1\">" +
-                        "<p class = \"username\">@" + comment['username'] +
-                        "</p>" +
+                        "<a href=\"profile.php?idUser=" + comment['idUser'] + "\" class = \"username\">@" + comment['username'] + 
+                        "</a>" +
                         "</div>" +
                         "</div>" +
                         "<div class = \"row\">" +
@@ -115,7 +119,8 @@
     function comment(event) {
         if (event.keyCode == 13) {
             var comment = $('#postWriter').val();
-            var postId = $.find('.active')[0].id.slice(-1)
+            var postId = $.find('.active')[0].id.replace('post','');
+            debugger;
             $.ajax({
                 url: "../server/commentInsert.php",
                 type: "GET",
@@ -133,10 +138,12 @@
                         "<div class=\"row comment\">" +
                         "<div class=\"row\">" +
                         "<div class=\"col-lg-1\">" +
+                        "<a href=\"profile.php?idUser=<?php echo $loggedUserInfo['idUser']?>\">" +
                         "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen'] ?> \" width=\"75px\" height=\"75px\"/>" +
+                        "</a>" +
                         "</div>" +
                         "<div class=\"col-lg-1\">" +
-                        "<p class=\"username\">@ <?php echo $loggedUserInfo['username'] ?> </p>" +
+                        "<a href=\"profile.php?idUser=<?php echo $loggedUserInfo['idUser']?>\" class=\"username\">@ <?php echo $loggedUserInfo['username'] ?> </a>" +
                         "</div>" +
                         "</div>" +
                         "<div class=\"row\">" +
