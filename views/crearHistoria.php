@@ -6,7 +6,7 @@
 
         <div class="main" style="margin: bottom 500px;">
             <p class="sign" style="font-size: 40px;" align="center">Crear Historia</p>
-            <form action="/BD2-practica/<?php echo basename(__DIR__) ?>/historiaPublicada.php" class="form1"
+            <form action="/BD201/<?php echo basename(__DIR__) ?>/historiaPublicada.php" class="form1"
                 method="get">
                 <input name="link" class="un " style="width: 300px;" type="text" align="center" placeholder="Link de la imatge (obligatori)">
                 <input name="titol" class="un " type="text" align="center" placeholder="Text (obligatori)">

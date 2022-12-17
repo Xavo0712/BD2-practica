@@ -230,8 +230,7 @@
             },
 
             success: function() {
-                //alert("Publicació reenviada correctament")
-
+                document.location.reload();
             }
 
         })

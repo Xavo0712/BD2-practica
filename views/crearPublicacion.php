@@ -16,7 +16,7 @@
         <div class="main" style="margin: bottom 500px;">
             <p class="sign" style="font-size: 40px;" align="center">Crear Publicació</p>
             <h3 class="sign" style="font-size: 20px;" align="center">- Un dels 2 camps (o els 2) ha d'omplir-se</h3>
-            <form action="/BD2-practica/<?php echo basename(__DIR__) ?>/publicacionPublicada.php" class="form1" method="get">
+            <form action="/BD201/<?php echo basename(__DIR__) ?>/publicacionPublicada.php" class="form1" method="get">
                 <input id="link" name="link" class="un " type="text" align="center" placeholder="Link de la imatge">
                 <input id="text" name="text" class="un " type="text" align="center" placeholder="Text">
                 <p class="sign" align="center">Afegir a una història</p>

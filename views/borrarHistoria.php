@@ -15,7 +15,7 @@
 
         <div class="main" style="margin: bottom 500px;">
             <p class="sign" style="font-size: 40px;" align="center">Borrar Historia</p>
-            <form action="/BD2-practica/<?php echo basename(__DIR__) ?>/historiaBorrada.php" class="form1"
+            <form action="/BD201/<?php echo basename(__DIR__) ?>/historiaBorrada.php" class="form1"
                 method="get">
                 <p class="sign" align="center">Escull la història que vols esborrar</p>
                 <select name="hist" class="form-select" style="width: auto; margin-left: 42.5%;"

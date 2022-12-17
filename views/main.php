@@ -16,7 +16,7 @@
 
     <body class="mainBody">
         <div class="mainThings">
-            <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/logOut.php" id="torn" style="margin-left: 88%;">Log
+            <a href="/BD201/<?php echo basename(__DIR__) ?>/logOut.php" id="torn" style="margin-left: 88%;">Log
                 Out</a>
 
             <div class="container">

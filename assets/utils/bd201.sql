@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2022 a las 14:22:13
+-- Tiempo de generación: 17-12-2022 a las 16:38:52
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -44,6 +44,13 @@ CREATE TABLE `follow` (
   `idUserFollowing` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `follow`
+--
+
+INSERT INTO `follow` (`idUserFollower`, `idUserFollowing`) VALUES
+(5, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +65,27 @@ CREATE TABLE `historia` (
   `img` char(255) DEFAULT NULL,
   `data` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `historia`
+--
+
+INSERT INTO `historia` (`idHist`, `tipus`, `idUser`, `text`, `img`, `data`) VALUES
+(9, 0, 5, 'Perros', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg/1200px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg.png', '2022-12-17 14:54:04'),
+(10, 0, 5, 'Cosas nazis', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg/1200px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg.png', '2022-12-17 15:57:21'),
+(11, 0, 6, 'Yo chulito', 'https://i0.wp.com/www.wehuntedthemammoth.com/wp-content/uploads/2016/09/nazicapybara.png?ssl=1', '2022-12-17 16:31:47'),
+(12, 0, 6, 'Yo chulito', 'https://i0.wp.com/www.wehuntedthemammoth.com/wp-content/uploads/2016/09/nazicapybara.png?ssl=1', '2022-12-17 16:34:58');
+
+--
+-- Disparadores `historia`
+--
+DELIMITER $$
+CREATE TRIGGER `after_historia_insert` AFTER INSERT ON `historia` FOR EACH ROW begin
+ INSERT INTO missatge (idUserR, text, idUserE, timeSent, leidoE, leidoR)
+   SELECT idUserFollower,CONCAT("NOVA HISTÒRIA BD201/views/story.php?storyId=", new.idHist, "&userId=", idUserFollower), 0, CURRENT_TIMESTAMP, 1, 0 FROM follow WHERE idUserFollowing = new.idUser;
+ end
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -83,7 +111,9 @@ INSERT INTO `missatge` (`idMsg`, `text`, `idUserE`, `idUserR`, `timeSent`, `leid
 (61, 'Hola random', 6, 5, '2022-12-15 22:36:35', 1, 1),
 (62, 'Holaaaa', 5, 6, '2022-12-15 22:41:02', 1, 1),
 (63, 'Hola', 5, 6, '2022-12-15 23:24:00', 1, 1),
-(64, 'bobo', 5, 6, '2022-12-17 13:21:52', 1, 1);
+(64, 'bobo', 5, 6, '2022-12-17 13:21:52', 1, 1),
+(65, '16', 0, 5, '2022-12-17 16:31:47', 1, 1),
+(66, 'NOVA HISTÒRIA BD201/views/story.php?storyId=12&userId=5', 0, 5, '2022-12-17 16:34:58', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +139,9 @@ INSERT INTO `publicacio` (`idPub`, `data`, `idHist`, `link`, `text`, `idUser`) V
 (6, '2022-12-15 12:45:14', NULL, 'https://www.lasfuriasmagazine.com/wp-content/uploads/2022/01/Toby-una-vida-perra.jpg', '@Alejandro Medina', 5),
 (7, '2022-12-15 12:46:38', NULL, 'https://pbs.twimg.com/media/Ff7OaXmXEAEeSpq.jpg', 'Hazte una cuco', 5),
 (10, '2022-12-15 12:49:38', NULL, 'https://www.boredpanda.com/blog/wp-content/uploads/2020/08/pets-animals-behind-glasses-fb-png__700.jpg', 'Perro copa', 5),
-(11, '2022-12-15 12:49:51', NULL, 'https://static.boredpanda.com/blog/wp-content/uploads/2020/08/pets-animals-behind-glasses-5f2cf741d3762__700.jpg', 'Perro copa 2', 5);
+(11, '2022-12-15 12:49:51', NULL, 'https://static.boredpanda.com/blog/wp-content/uploads/2020/08/pets-animals-behind-glasses-5f2cf741d3762__700.jpg', 'Perro copa 2', 5),
+(12, '2022-12-17 15:00:24', 9, 'https://pbs.twimg.com/media/FBiqQM5XEAIh8Mi?format=jpg&name=large', 'Me', 5),
+(13, '2022-12-17 15:01:53', 9, '', 'Texto', 5);
 
 -- --------------------------------------------------------
 
@@ -130,7 +162,11 @@ CREATE TABLE `resposta` (
 --
 
 INSERT INTO `resposta` (`idRes`, `text`, `data`, `idUser`, `idPub`) VALUES
-(1, 'maricon', '2022-12-17 12:34:35', 6, 11);
+(1, 'maricon', '2022-12-17 12:34:35', 6, 11),
+(2, 'Perro copa', '2022-12-17 14:55:08', 5, 10),
+(3, 'Perro', '2022-12-17 14:57:39', 5, 6),
+(4, 'Perro 2', '2022-12-17 14:59:16', 5, 6),
+(5, 'Thats me', '2022-12-17 15:02:04', 5, 12);
 
 -- --------------------------------------------------------
 
@@ -150,6 +186,7 @@ CREATE TABLE `r_reenv` (
 
 INSERT INTO `r_reenv` (`idUser`, `idPub`, `data`) VALUES
 (5, 6, '2022-12-17 13:59:39'),
+(5, 10, '2022-12-17 15:41:07'),
 (5, 11, '2022-12-17 13:59:13'),
 (6, 10, '2022-12-17 12:34:25'),
 (6, 11, '2022-12-17 12:34:29');
@@ -175,6 +212,7 @@ CREATE TABLE `usuari` (
 --
 
 INSERT INTO `usuari` (`idUser`, `nom`, `contrasenya`, `telefon`, `correu`, `username`, `imagen`) VALUES
+(0, 'Uibber System', 'contraseña', 0, '', 'System', 'https://drive.google.com/uc?export=view&id=1m29xLDLgmmOcCviT8quBOomm8Gx85b1O'),
 (5, '111', '111', 111, '111', '111', 'https://pbs.twimg.com/media/FBiqQM5XEAIh8Mi?format=jpg&name=large'),
 (6, 'Messi', 'ganandoMundiales', 685747563, 'pequenoganador@barsa.arg', 'LeonArgento', 'https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/81553444_831134467309002_5693703170664955904_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=973b4a&_nc_ohc=kDZ_vd3HsOcAX-o9vC1&_nc_ht=scontent-mad1-1.xx&oh=00_AfDxiO5pInIe5bZht-r9xNVrtNUDsmARUWai9yAIJD1vfw&oe=63C52B2A');
 
@@ -241,31 +279,31 @@ ALTER TABLE `usuari`
 -- AUTO_INCREMENT de la tabla `historia`
 --
 ALTER TABLE `historia`
-  MODIFY `idHist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idHist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `missatge`
 --
 ALTER TABLE `missatge`
-  MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacio`
 --
 ALTER TABLE `publicacio`
-  MODIFY `idPub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idPub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `resposta`
 --
 ALTER TABLE `resposta`
-  MODIFY `idRes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idRes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuari`
 --
 ALTER TABLE `usuari`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

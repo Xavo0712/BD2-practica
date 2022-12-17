@@ -33,7 +33,6 @@
     <?php
     } else {
         setcookie("user", $nreg[0]['idUser']);
-        echo $_COOKIE['user'];
     ?>
     <script>
     window.location.replace('<?php echo $onlyPath ?>/main.php');

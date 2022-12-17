@@ -8,8 +8,8 @@
 
     <div class="main">
         <p class="sign" align="center">Segur que vols sortir?</p>
-        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/login.php" id="torn">Si, sortir</a>
-        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Cancelar</a>
+        <a href="/BD201/<?php echo basename(__DIR__) ?>/login.php" id="torn">Si, sortir</a>
+        <a href="/BD201/<?php echo basename(__DIR__) ?>/main.php" id="torn">Cancelar</a>
     </div>
 
 </body>
