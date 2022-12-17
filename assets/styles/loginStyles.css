@@ -84,7 +84,11 @@ a {
     text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
     color: #6d3232;
     text-decoration: none;
-    margin-left: 30px;
+    transition: .2s;
+}
+
+form a:hover{
+    color:#5a5454!important;
     transition: .2s;
 }
 

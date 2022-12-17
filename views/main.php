@@ -3,21 +3,14 @@
     <?php require_once __DIR__ . "/header.php" ?>
     <?php require_once __DIR__ . "/chat.php" ?>
     <?php
-    $con = mysqli_connect("localhost", "root", "");
-    $db = mysqli_select_db($con, "bd201");
     $loggedUser = $_COOKIE['user'];
-    $selectUser = ("SELECT * FROM USUARI WHERE usuari.idUser= " . $loggedUser);
-    $datosUser = mysqli_query($con, $selectUser);
-
+    $selectUser = DB::run("SELECT * FROM USUARI WHERE usuari.idUser= ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0];
 
     //SELECT PARA MOSTRAR TODO RESPUESTAS, REENVIOS Y PUBLICACIONES DE USUARIOS
-    $selectPublicacio = ("SELECT * FROM publicacio");
-    $datosPublicacio = mysqli_query($con, $selectPublicacio);
-
-    $selectReenviament=("SELECT * FROM r_reenv ");
-    $datosReenviament = mysqli_query($con, $selectReenviament);
-
-
+    $datosPublicacio = DB::run("SELECT link AS img, text, publicacio.idPub, r_reenv.data, publicacio.idUser, usuari.username, r_reenv.idUser as reenvUser 
+                                    FROM publicacio JOIN r_reenv ON r_reenv.idPub = publicacio.idPub JOIN usuari ON r_reenv.idUser = usuari.idUser UNION 
+                                SELECT link as img, text, publicacio.idPub, publicacio.data, publicacio.idUser, null, null
+                                    FROM publicacio JOIN usuari ON publicacio.idUser = usuari.idUser ORDER BY data DESC")->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
 
@@ -38,59 +31,53 @@
         </div>
 
         <div class="usuari">
-            <?php foreach ($datosUser as $usuario) {
+            <div class="imagen">
 
-                echo "
-            <div class=\"imagen\">
-
-                <div class=\"imgTodo\">
-                    <img class=\"perfilImagen\" src=\"" . $usuario['imagen'] . "\">
-                    <div class=\"imagenCabecera\"><br />
-                        <h2> @". $usuario['username'] . "</h2>
-                        <h2>". $usuario['nom'] ."</h2>
-                    </div>
+                <div class="imgTodo">
+                    <a href="profile.php?idUser=<?php echo $selectUser['idUser'] ?>">
+                        <img class="perfilImagen" src="<?php echo $selectUser['imagen'] ?>">
+                        <div class="imagenCabecera">
+                            <h2>@<?php echo $selectUser['username'] ?></h2>
+                            <h2><?php echo $selectUser['nom'] ?></h2>
+                        </div>
+                    </a>
                 </div>
-                <div class=\"imgTodo2\">
-                    <div class=\"imgDescripcion\">
-                        <medium>". $usuario['telefon'] . "</medium>
-                        <medium>" . $usuario['correu'] . "</medium>
-                    </div>
-                    <div style=\"width:70px\">
-                        
+                <div class="imgTodo2">
+                    <div class="imgDescripcion">
+                        <medium><?php echo $selectUser['telefon'] ?></medium>
+                        <medium><?php echo $selectUser['correu'] ?></medium>
                     </div>
                 </div>
             </div>
-            ";
-            }
-            ?>
         </div>
         <div class="contenedor">
             <?php
             foreach ($datosPublicacio as $publicacio) {
+                $postUser = DB::run("SELECT usuari.imagen, usuari.username, usuari.nom FROM usuari JOIN publicacio ON publicacio.idUser = usuari.idUser AND publicacio.idPub = ?", [$publicacio['idPub']])->fetchAll(PDO::FETCH_ASSOC)[0];
+                echo "<div class=\"row post\" id=\"post" . $publicacio['idPub'] . "\">
+                            <div class=\"row\" style=\"border-bottom: 1px solid black; padding-bottom: 10px;\">
+                                <div class=\"col-lg-2\">
+                                    <a href=\"profile.php?idUser=" . $publicacio['idUser'] . "\">
+                                        <img class=\"userPic\" src=\"" . $postUser['imagen'] . "\" style=\"width: 75px!imporant; height: 75px!important;\" />
+                                    </a>
+                                </div>
+                                <div class=\"col-lg-8\">
+                                    <a href=\"profile.php?idUser=" . $publicacio['idUser'] . "\" class=\"username\">@" . $postUser['username'] . "</a>
+                                    <p>" . $postUser['nom'] . "</p>
+                                </div>";
+                if ($publicacio['reenvUser'] != null) {
+                    echo "  <div class=\"col-lg-2\">
+                                <p>Reenviado por @" . $publicacio['username'] . "</p>
+                            </div>";
+                }
                 echo "
-                    <div class=\"row post\" id=\"post" . $publicacio['idPub'] . "\"><br>     
+                    </div>
+                    <a href=\"post.php?postId=" . $publicacio['idPub'] . "\">
                         <p>" . $publicacio['text'] . "</p>
-                        <img  class=\"imgPubli\" src=\"" . $publicacio['link'] . "\"><br>
-                        <p class=\"data\">" . $publicacio['data'] . "</p>          
-                    </div>";
-            }
-
-            foreach($datosReenviament as $reenvii){
-                $pubReenvc="SELECT * FROM publicacio WHERE publicacio.idPub=".$reenvii['idPub'];
-                $pubReenv=mysqli_query($con,$pubReenvc);
-                $reultado = mysqli_fetch_array($pubReenv);
-                $userNamec="SELECT username FROM usuari WHERE usuari.idUser=".$reenvii['idUser'];
-                $userName=mysqli_query($con,$userNamec);
-                $resultado2=mysqli_fetch_array($userName);
-
-                echo "
-                <div class=\"row post\" id=\"post". $reultado['idPub']."\"><br>     
-                    <p>" . $reultado['text'] . "</p>
-                    <img  class=\"imgPubli\" src=\"" . $reultado['link'] . "\"><br>
-                    <div class=\"reenviado\" style=\"display: flex , flex-direction=row;\">
-                    <p class=\"data\">" . $reultado['data'] . "  
-                    Reenviado por: ".$resultado2['username']."</p>
-                    </div>      
+                        <img  class=\"imgPubli\" src=\"" . $publicacio['img'] . "\"><br>
+                    </a>
+                    <p class=\"data\">" . $publicacio['data'] . "</p>
+                    <button type=\"button\" attridHist=" . $publicacio['idPub'] . " class=\"btn-reenviar\">Reenviar</button>        
                 </div>";
             }
             ?>
@@ -100,27 +87,45 @@
 
 </html>
 <script>
-$(document).ready(function() {
-    var data;
-    getAllUsers(function(response) {
-        data = response;
+    $(document).ready(function() {
+        var data;
+        getAllUsers(function(response) {
+            data = response;
+        });
+
+        for (let i = 0; i < data.length; i++) {
+            user = data[i];
+            const us = "<?php echo $_COOKIE['user']; ?>";
+            if (user.idUser != us) {
+                $("#users").append("<option value='" + user.idUser + "'>" + user.username + "</option>")
+            }
+        }
+
+        var select1 = document.querySelector('#users');
+        dselect(select1, {
+            search: true
+        });
     });
 
-    for (let i = 0; i < data.length; i++) {
-        user = data[i];
-        const us = "<?php echo $_COOKIE['user']; ?>";
-        if (user.idUser != us) {
-            $("#users").append("<option value='" + user.idUser + "'>" + user.username + "</option>")
-        }
+    function handleSelect(elm) {
+        window.location.replace("profile.php?idUser=" + elm.value);
     }
 
-    var select1 = document.querySelector('#users');
-    dselect(select1, {
-        search: true
-    });
-});
+    $('.btn-reenviar').click(function() {
+        var idPubButt = $(this).attr('attridHist')
+        $('#myModal2').show();
+        $.ajax({
+            url: "../server/reenviar.php",
+            type: "GET",
+            data: {
+                idUserPub: <?php echo $loggedUser; ?>,
+                idPub: Number(idPubButt)
+            },
 
-function handleSelect(elm) {
-    window.location.replace("profile.php?idUser=" + elm.value);
-}
+            success: function() {
+                document.location.reload();
+            }
+
+        })
+    });
 </script>

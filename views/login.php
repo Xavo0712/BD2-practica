@@ -21,7 +21,7 @@
             <input name="contrassenya" class="pass" type="password" align="center" placeholder="Contrassenya">
             <button type="submit" class="registerButton">Login</button>
             <p class="forgot" align="center"> <strong id="frase">No tens compte?</strong><a
-                    href="<?php echo $onlyPath ?>/register.php" id="regi">Registra't</p>
+                    href="<?php echo $onlyPath ?>/register.php" id="regi"> Registra't</p>
     </div>
 
 </body>

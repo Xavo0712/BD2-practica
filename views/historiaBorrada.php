@@ -13,7 +13,7 @@
     $con = mysqli_connect("localhost", "root", "");
     $db = mysqli_select_db($con, "bd201");
 
-    $consulta1 = "DELETE FROM publicacio WHERE publicacio.idHist = '" . $locHist . "'";
+    $consulta1 = "UPDATE publicacio SET idHist = NULL WHERE publicacio.idHist = '" . $locHist . "'";
     $resultado1 = mysqli_query($con, $consulta1);
 
     $consulta2 = "DELETE FROM historia WHERE historia.idHist = '" . $locHist . "'";

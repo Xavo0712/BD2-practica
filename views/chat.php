@@ -41,13 +41,14 @@ function enterChat(sender, receiver, logged) {
             <a id="upChat" href="javascript:void(0)" style="text-decoration: none; display:none;"><i
                     class="fa-solid fa-chevron-up text-center"></i></a>
         </div>
-        <div id="miniChat" style="overflow-y:scroll; height:505px;">
+        <div id="miniChat" style="overflow-y:scroll; height:505px; background-color:#332f2f;">
             <?php
       $userChats = array();
       $loggedUser = $_COOKIE['user']; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
-      $query = DB::run("CALL getChats(?)", [$loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
+      $query = DB::run("CALL getChats(?)", [$loggedUser]);
       $statement = $query->fetchAll(PDO::FETCH_ASSOC);
+      $query->closeCursor();
       //Washing statement so it only contains last message of each chat of current user
       $lastMsgs = array();
       foreach ($statement as $row) {
@@ -110,7 +111,7 @@ function enterChat(sender, receiver, logged) {
         </div>
         <?php
     foreach ($userChats as $chat) {
-      echo "<div id=\"chatPersonal" . $chat . "\" style=\"display:none;\" class=\"chatPersonal\">\n
+      echo "<div id=\"chatPersonal" . $chat . "\" style=\"display:none; background-color:#332f2f;\" class=\"chatPersonal\">\n
       <div id=\"chatBody" . $chat . "\" style=\"overflow-y:scroll; height:455px;\" class=\"panel-body chat-body\">\n";
       $currentChat = $chat;
       foreach ($statement as $message) {

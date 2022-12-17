@@ -289,7 +289,7 @@ a.profileInfo {
     margin-left: 0;
 }
 
-a.profileInfo:hover {
+a:hover {
     color: white !important;
 }
 
@@ -324,6 +324,10 @@ a.profileInfo:hover {
 
 .post p {
     color: #ffffff !important;
+}
+
+.post a {
+    margin:0;
 }
 
 /* SCROLLBARS */
@@ -566,7 +570,7 @@ button[type=submit] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 400px;
+    padding-left: 400px;
 }
 
 .usuari{
@@ -584,13 +588,16 @@ button[type=submit] {
     align-items: center;
 }
 
-.imgCabecera{
+.imagenCabecera{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.imagenCabecera *{ 
+    align-content: center;
+}
 .imgTodo{
     display: flex;
     flex-direction: row;

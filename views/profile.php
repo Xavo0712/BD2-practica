@@ -7,8 +7,8 @@
 
     $profileUser = $_GET['idUser'];
     $profileUserInfo = DB::run("SELECT * FROM usuari WHERE idUser = ?", [$profileUser])->fetchAll(PDO::FETCH_ASSOC)[0];
-    $allUserPosts = DB::run("SELECT link AS img, text, publicacio.idPub, r_reenv.data FROM publicacio JOIN r_reenv ON (r_reenv.idPub = publicacio.idPub AND r_reenv.idUser = ?) UNION 
-        SELECT link as img, text, publicacio.idPub, publicacio.data FROM publicacio WHERE (publicacio.idUser = ? AND publicacio.idHist IS NULL);", [$profileUser, $profileUser])->fetchAll(PDO::FETCH_ASSOC);
+    $allUserPosts = DB::run("SELECT link AS img, text, publicacio.idPub, r_reenv.data, publicacio.idUser, usuari.imagen, usuari.username, usuari.nom FROM publicacio JOIN r_reenv ON (r_reenv.idPub = publicacio.idPub AND r_reenv.idUser = ?) JOIN usuari ON publicacio.idUser = usuari.idUser UNION 
+        SELECT link as img, text, publicacio.idPub, publicacio.data, publicacio.idUser, null, null, null FROM publicacio WHERE (publicacio.idUser = ? AND publicacio.idHist IS NULL);", [$profileUser, $profileUser])->fetchAll(PDO::FETCH_ASSOC);
 
     $allUserStories = DB::run("SELECT * FROM historia WHERE idUser = ?", [$profileUser])->fetchAll(PDO::FETCH_ASSOC);
     $follows['follow'] = 1;
@@ -46,20 +46,36 @@
                         Historias
                     </div>
                 </div>
-                <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px;">
+                <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px; --bs-gutter-x: 0;">
                     <?php
                     foreach ($allUserPosts as $post) {
+                        echo "<div id=\"post" . $post['idPub'] . "\" class=\"row post\">";
+                        if ($post['username'] != null) {
+                            echo "  <div class=\"row\" style=\"border-bottom: 1px solid black; padding-bottom: 10px; height:auto;\">
+                                        <div class=\"col-lg-2\">
+                                            <a href=\"profile.php?idUser=" . $post['idUser'] . "\">
+                                                <img class=\"userPic\" src=\"" . $post['imagen'] . "\" style=\"width: 75px!imporant; height: 75px!important;\" />
+                                            </a>
+                                        </div>
+                                        <div class=\"col-lg-8\">
+                                            <a href=\"profile.php?idUser=" . $post['idUser'] . "\" class=\"username\">@" . $post['username'] . "</a>
+                                            <p>" . $post['nom'] . "</p>
+                                        </div>
+                                        <div class=\"col-lg-2\">
+                                            <p>Reenviado por @". $profileUserInfo['username'] ."</p>
+                                        </div>
+                                    </div>";
+                        }
                         echo " 
-                                <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
-                                    <p>" . $post['text'] . "</p>
                                     <a href=\"post.php?postId=" . $post['idPub'] . "\">
+                                        <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" class=\"imgPost\">
                                     </a>
                                     <div id=\"btn-data-line\">         
                                         <small class=\"data\" style=\"padding-left:50px\">" . $post['data'] . "</small>
-                                        <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button> 
+                                        <button type=\"button\" attridHist=" . $post['idPub'] . " class=\"btn-reenviar\">Reenviar</button> 
                                     </div>
-                                </div>";     
+                                </div>";
                     }
                     ?>
                 </div>
@@ -181,11 +197,8 @@
                     following: <?php echo $profileUser; ?>
                 },
                 success: function() {
-                    console.log("Followed successfully")
-                    button = $('.btnFollow');
-                    button.attr("id", "unfollow");
-                    button.text("Dejar de Seguir");
-                    <?php $follows['follow'] = 1;?>
+                    console.log("Followed successfully");
+                    document.location.reload();
                 }
             });
         } else {
@@ -197,42 +210,37 @@
                     following: <?php echo $profileUser; ?>
                 },
                 success: function() {
-                    console.log("Unollowed successfully")
-                    button = $('.btnFollow');
-                    button.attr("id", "follow");
-                    button.text("Seguir");
-                    <?php $follows['follow'] = 0;?>
+                    console.log("Unollowed successfully");
+                    document.location.reload();
                 }
             });
         }
     });
 
-    $('.btn-reenviar').click(function(){
-        var idPubButt=$(this).attr('attridHist')
+    $('.btn-reenviar').click(function() {
+        var idPubButt = $(this).attr('attridHist')
         $('#myModal2').show();
         $.ajax({
             url: "../server/reenviar.php",
-            type:"GET",
-            data:{
+            type: "GET",
+            data: {
                 idUserPub: <?php echo $loggedUser; ?>,
-                idPub:Number(idPubButt)
+                idPub: Number(idPubButt)
             },
 
-            success: function(){
+            success: function() {
                 //alert("Publicació reenviada correctament")
-                
+
             }
-            
+
         })
     });
 
-    $('.btn-cerrar').click(function(){
+    $('.btn-cerrar').click(function() {
         $('#myModal2').hide();
     });
 
     $('#myModal2').on('shown.bs.modal', function() {
         $('#myInput').trigger('focus')
     });
-
-    
 </script>
