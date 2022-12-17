@@ -49,7 +49,7 @@
                 <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px;">
                     <?php
                     foreach ($allUserPosts as $post) {
-                        echo "  
+                        echo " <a href=\"post.php?postId=" . $post['idPub'] . "\">
                                     <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
                                         <p>" . $post['text'] . "</p>
                                         <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
@@ -58,7 +58,7 @@
                                         <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button>  
                                     </div>
                                     </div>
-                                ";      
+                                </a>";      
                     }
                     ?>
                 </div>

@@ -11,7 +11,7 @@
 
 
     //SELECT PARA MOSTRAR TODO RESPUESTAS, REENVIOS Y PUBLICACIONES DE USUARIOS
-    $selectPublicacio = ("SELECT * FROM publicacio WHERE publicacio.idUser= " . $loggedUser);
+    $selectPublicacio = ("SELECT * FROM publicacio");
     $datosPublicacio = mysqli_query($con, $selectPublicacio);
 
     $selectReenviament=("SELECT * FROM r_reenv ");
@@ -73,6 +73,25 @@
                         <img  class=\"imgPubli\" src=\"" . $publicacio['link'] . "\"><br>
                         <p class=\"data\">" . $publicacio['data'] . "</p>          
                     </div>";
+            }
+
+            foreach($datosReenviament as $reenvii){
+                $pubReenvc="SELECT * FROM publicacio WHERE publicacio.idPub=".$reenvii['idPub'];
+                $pubReenv=mysqli_query($con,$pubReenvc);
+                $reultado = mysqli_fetch_array($pubReenv);
+                $userNamec="SELECT username FROM usuari WHERE usuari.idUser=".$reenvii['idUser'];
+                $userName=mysqli_query($con,$userNamec);
+                $resultado2=mysqli_fetch_array($userName);
+
+                echo "
+                <div class=\"row post\" id=\"post". $reultado['idPub']."\"><br>     
+                    <p>" . $reultado['text'] . "</p>
+                    <img  class=\"imgPubli\" src=\"" . $reultado['link'] . "\"><br>
+                    <div class=\"reenviado\" style=\"display: flex , flex-direction=row;\">
+                    <p class=\"data\">" . $reultado['data'] . "  
+                    Reenviado por: ".$resultado2['username']."</p>
+                    </div>      
+                </div>";
             }
             ?>
         </div>
