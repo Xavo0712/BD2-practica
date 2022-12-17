@@ -15,14 +15,18 @@
     <body class="mainBody">
         <div class="row">
             <div style="margin-left:25%;" class="panel panel-default col-lg-6 postBlock">
-                <div id="storyCarousel" class="carousel slide row" data-ride="carousel">
-                    <a class="carousel-control-prev" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                <?php
+                $primero = false;
+                if(sizeof($storyPosts) > 0){
+
+                
+                echo "<div id=\"storyCarousel\" class=\"carousel slide row\" data-ride=\"carousel\">
+                    <a class=\"carousel-control-prev\" role=\"button\" data-slide=\"prev\">
+                        <span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>
+                        <span class=\"sr-only\">Previous</span>
                     </a>
-                    <div class="carousel-inner">
-                        <?php
-                        $primero = false;
+                    <div class=\"carousel-inner\">";
+                        
                         foreach ($storyPosts as $post) {
                             echo "  <div id=\"post" . $post['idPub'] . "\"class=\"carousel-item postInfo row " . (($primero == false) ? "active" : "") . "\">
                             <div class=\"row\" style=\"padding-left:20%\">
@@ -44,21 +48,26 @@
                             </div>";
                             $primero = true;
                         }
-                        ?>
+                        echo "</div>
+                        <a class=\"carousel-control-next\" role=\"button\" data-slide=\"next\">
+                            <span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>
+                            <span class=\"sr-only\">Next</span>
+                        </a>
                     </div>
-                    <a class="carousel-control-next" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
-                <div class="row panel-footer post-writer">
-                    <input id="postWriter" placeholder="Escriba un mensaje" onkeypress="comment(event)"></input>
-                </div>
-                <div class="row">
-                    <div class="panel panel-default postComments" style="overflow-y:auto; height:800px;">
+    
+                    <div class=\"row panel-footer post-writer\">
+                        <input id=\"postWriter\" placeholder=\"Escriba un mensaje\" onkeypress=\"comment(event)\"></input>
                     </div>
-                </div>
+                    <div class=\"row\">
+                        <div class=\"panel panel-default postComments\" style=\"overflow-y:auto; height:800px;\">
+                        </div>
+                    </div>";
+                    } else {
+                        echo "<h2>Esta historia está vacía</h2>";
+                    }
+                    
+                    ?>
+                    
             </div>
         </div>
     </body>
