@@ -8,6 +8,7 @@
     <a href="chatPage.php">Chats</a>
     <a href="crearPublicacion.php">Crear Publicación</a>
     <a href="crearHistoria.php">Crear Historia</a>
+    <a href="borrarHistoria.php">Borrar Historia</a> 
 </div>
 
 <script>
