@@ -549,10 +549,24 @@ button[type=submit] {
     transition: 0.3s;
 }
 
+.imgPost{
+  padding: 5px;
+  max-width: 400px;
+  max-height: 400px;
+}
+
 .btn-reenviar{
     background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 15, 15));
     border-radius: 20px;
     color: #fff;
+}
+
+#btn-data-line{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 400px;
 }
 
 .usuari{

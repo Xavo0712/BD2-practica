@@ -49,16 +49,17 @@
                 <div class="panel panel-default profilePosts" style="overflow-y:auto; height:800px;">
                     <?php
                     foreach ($allUserPosts as $post) {
-                        echo " <a href=\"post.php?postId=" . $post['idPub'] . "\">
-                                    <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
-                                        <p>" . $post['text'] . "</p>
-                                        <img src=\"" . $post['img'] . "\" max-height=\"200px\" max-width=\"200px\">
-                                    <div id=\"btn-data-line\">    
-                                        <p class=\"data\">" . $post['data'] . "</p>
-                                        <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button>  
+                        echo " 
+                                <div id=\"post" . $post['idPub'] . "\" class=\"row post\">
+                                    <p>" . $post['text'] . "</p>
+                                    <a href=\"post.php?postId=" . $post['idPub'] . "\">
+                                        <img src=\"" . $post['img'] . "\" class=\"imgPost\">
+                                    </a>
+                                    <div id=\"btn-data-line\">         
+                                        <small class=\"data\" style=\"padding-left:50px\">" . $post['data'] . "</small>
+                                        <button type=\"button\" attridHist=".$post[ 'idPub']." class=\"btn-reenviar\">Reenviar</button> 
                                     </div>
-                                    </div>
-                                </a>";      
+                                </div>";     
                     }
                     ?>
                 </div>
@@ -106,11 +107,8 @@
                     <div class="modal-header">
                         <h5 class="modal-title">Publicació reenviada</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span class="btn-cerrar" aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="cambioFoto" type="button" class="btn btn-primary btnSave">Aceptar</button>
                     </div>
                 </div>
             </div>
@@ -211,6 +209,7 @@
 
     $('.btn-reenviar').click(function(){
         var idPubButt=$(this).attr('attridHist')
+        $('#myModal2').show();
         $.ajax({
             url: "../server/reenviar.php",
             type:"GET",
@@ -220,11 +219,15 @@
             },
 
             success: function(){
-                alert("Publicació reenviada correctament")
-                //$('#myModal2').hide();
+                //alert("Publicació reenviada correctament")
+                
             }
             
         })
+    });
+
+    $('.btn-cerrar').click(function(){
+        $('#myModal2').hide();
     });
 
     $('#myModal2').on('shown.bs.modal', function() {
