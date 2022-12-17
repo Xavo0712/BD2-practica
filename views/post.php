@@ -31,6 +31,7 @@
                     <div class="row">
                         <p><?php echo $postInfo['text'] ?></p>
                         <img class="postImage" src=<?php echo "\"" . $postInfo['link'] . "\"" ?> max-height="200px" max-width="200px">
+                        <button type="button" attridHist=<?php echo "\"" . $postId . "\"" ?> class="btn-reenviar">Reenviar</button> 
                         <p class="data"><?php echo $postInfo['data'] ?></p>
                     </div>
                 </div>
@@ -124,4 +125,23 @@
 
         }
     }
+    $('.btn-reenviar').click(function() {
+        var idPubButt = $(this).attr('attridHist')
+        $('#myModal2').show();
+        $.ajax({
+            url: "../server/reenviar.php",
+            type: "GET",
+            data: {
+                idUserPub: <?php echo $loggedUser; ?>,
+                idPub: Number(idPubButt)
+            },
+
+            success: function() {
+                //alert("Publicació reenviada correctament")
+
+            }
+
+        })
+    });
+
 </script>

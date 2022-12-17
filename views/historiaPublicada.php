@@ -27,7 +27,7 @@
     if($locLink != "" && $locTitol != "") { ?>
     <div class="main">
         <p class="sign" align="center">Història registrada correctament</p>
-        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
+        <a href="/BD201/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
     </div>
     <?php
                         }
@@ -37,7 +37,7 @@
     ?>
     <div class="main">
         <p class="sign" align="center">Història NO registrada, omple tots els camps</p>
-        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
+        <a href="/BD201/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
     </div>
     <?php
                         }

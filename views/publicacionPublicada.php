@@ -27,7 +27,7 @@
 
     <div class="main">
         <p class="sign" align="center"> Publicació registrada correctament</p>
-        <a href="/BD2-practica/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
+        <a href="/BD201/<?php echo basename(__DIR__) ?>/main.php" id="torn">Tornar a Inicio</a>
     </div>
 
 </body>
