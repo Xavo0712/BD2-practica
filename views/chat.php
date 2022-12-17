@@ -1,3 +1,34 @@
+<!--DO SAME AS chatPage-->
+<script>
+function enterChat(sender, receiver) {
+    $.ajax({
+        url: "../server/seenUpdate.php",
+        type: "GET",
+        data: {
+            idS: sender,
+            idR: receiver
+        },
+        success: function() {
+            console.log("Seen sent successfully")
+        }
+    });
+}
+
+function enterChat(sender, receiver, logged) {
+    $.ajax({
+        url: "../server/seenUpdate.php",
+        type: "GET",
+        data: {
+            loggedUser: logged,
+            idS: sender,
+            idR: receiver
+        },
+        success: function() {
+            console.log("Seen sent successfully")
+        }
+    });
+}
+</script>
 <?php $currentChat = 1 ?>
 <div id="myChat" class="chat container">
     <div class="panel panel-default border">
@@ -15,9 +46,7 @@
       $userChats = array();
       $loggedUser = $_COOKIE['user']; //paco as user for test purpouse
       $loggedUsername = DB::run("SELECT username FROM usuari WHERE idUser = ?", [$loggedUser])->fetchAll(PDO::FETCH_ASSOC)[0]['username'];
-      $query = DB::run("SELECT senders.idUser AS sId, senders.username AS sender, senders.imagen AS sImg, receivers.idUser AS rId, receivers.username AS receiver, receivers.imagen AS rImg, missatge.idMsg, missatge.text, missatge.timeSent 
-      FROM missatge JOIN usuari AS senders ON (missatge.idUserE = ? OR missatge.idUserR = ?) AND missatge.idUserE = senders.idUser 
-      JOIN usuari AS receivers ON missatge.idUserR = receivers.idUser ORDER BY missatge.timeSent;", [$loggedUser, $loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
+      $query = DB::run("CALL getChats(?)", [$loggedUser]); //opcionalmente ORDER BY para usuarios por orden de algo...
       $statement = $query->fetchAll(PDO::FETCH_ASSOC);
       //Washing statement so it only contains last message of each chat of current user
       $lastMsgs = array();
@@ -41,11 +70,15 @@
           $otherUser = $row['receiver'];
           $otherUserId = $row['rId'];
           $otherUserImg = $row['rImg'];
+          $leido = $row['leidoE'];
         } else {
           $otherUser = $row['sender'];
           $otherUserId = $row['sId'];
           $otherUserImg = $row['sImg'];
+          $leido = $row['leidoR'];
         }
+        $time = substr($row['lastTime'], 3, 2);
+
         array_push($userChats, $otherUserId);
         echo "<div id=\"" . $otherUserId . "\" class=\"chat-info row\" name=\"" . $otherUser . "\">\n";
         echo "  <div class=\"col-lg-2\">\n";
@@ -59,12 +92,18 @@
         echo $row['text'] . "\n";
         echo "    </div>\n";
         echo "  </div>\n";
-        echo "  <div class=\"row col-lg-2\">\n";
-        echo "    <div class=\"messageInfo\">\n";
-        echo "      10min\n"; //ya si, poner la fecha
-        echo "    </div>\n";
-        echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width=\"15px\" height=\"10px\" />\n";
-        echo "  </div>\n";
+        if ($leido == 0) {
+          echo "  <div id=\"seenMsg" . $otherUserId . "\" class=\"row col-lg-2\" style=\"display:block;\">\n";
+          echo "    <div class=\"messageInfo\">\n";
+          if ($time == "00") {
+            echo "      Just now\n";
+          } else {
+            echo "      " . $time . " min\n";
+          }
+          echo "    </div>\n";
+          echo "    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/2048px-Location_dot_dark_red.svg.png\" width:\"10px\" height=\"15px\" />\n";
+          echo "  </div>\n";
+        }
         echo "</div>\n";
       }
       ?>
@@ -77,10 +116,12 @@
       foreach ($statement as $message) {
         if ($message['sId'] == $currentChat || $message['rId'] == $currentChat) {
           if ($message['sId'] == $loggedUser) {
+            echo "<script>enterChat(" . $loggedUser . "," . $chat . "," . $loggedUser . ")</script>";
             echo "    <div class=\"sent-message\">\n";
             echo "    <p>" . $message['text'] . "</p>\n";
             echo "    </div>\n";
           } else {
+            echo "<script>enterChat(" . $chat . "," . $loggedUser . "," . $loggedUser . ")</script>";
             echo "    <div class=\"received-message\">\n";
             echo "    <p>" . $message['text'] . "</p>\n";
             echo "    </div>\n";
@@ -131,6 +172,8 @@ $('.chat-info').click(function() {
     console.log("Clicado: " + $(this).attr('id') + ", mostrando a " + '#chatPersonal' + $(this).attr('id'));
     $('#miniChat').css('display', 'none');
     $('#chatPersonal' + $(this).attr('id')).css('display', 'block');
+    $('#seenMsg' + $(this).attr('id')).css('display', 'none');
+    enterChat(<?php echo $loggedUser ?>, $(this).attr('id'));
 });
 
 function enterMessage(event, id, sender, receiver) {
