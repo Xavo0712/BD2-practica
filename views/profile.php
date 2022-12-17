@@ -182,6 +182,7 @@
                     console.log("Pic updated successfully")
                     $('#profilePic').attr('src', link);
                     $('#myModal').hide();
+                    document.location.reload();
                 }
             });
         }

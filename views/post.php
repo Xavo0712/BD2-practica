@@ -105,7 +105,7 @@
                         "<div class=\"row comment\">" +
                         "<div class=\"row\">" +
                         "<div class=\"col-lg-1\">" +
-                        "<a href=\"profile.php?idUser=\"<?php echo $loggedUser ?>\">" +
+                        "<a href=\"profile.php?idUser=<?php echo $loggedUser ?>\">" +
                         "<img class=\"userPic\" src=\" <?php echo $loggedUserInfo['imagen'] ?> \" width=\"75px\" height=\"75px\"/>" +
                         "</a>" +
                         "</div>" +
