@@ -116,12 +116,12 @@ function enterChat(sender, receiver, logged) {
       $currentChat = $chat;
       foreach ($statement as $message) {
         if ($message['sId'] == $currentChat || $message['rId'] == $currentChat) {
-          if ($message['sId'] == $loggedUser) {
+          if ($message['sId'] == $loggedUser && $message['text'] != "") {
             echo "<script>enterChat(" . $loggedUser . "," . $chat . "," . $loggedUser . ")</script>";
             echo "    <div class=\"sent-message\">\n";
             echo "    <p>" . $message['text'] . "</p>\n";
             echo "    </div>\n";
-          } else {
+          } else if ($message['text'] != "") {
             echo "<script>enterChat(" . $chat . "," . $loggedUser . "," . $loggedUser . ")</script>";
             echo "    <div class=\"received-message\">\n";
             echo "    <p>" . $message['text'] . "</p>\n";
