@@ -54,7 +54,7 @@
             <?php
             foreach ($datosPublicacio as $publicacio) {
                 $postUser = DB::run("SELECT usuari.imagen, usuari.username, usuari.nom FROM usuari JOIN publicacio ON publicacio.idUser = usuari.idUser AND publicacio.idPub = ?", [$publicacio['idPub']])->fetchAll(PDO::FETCH_ASSOC)[0];
-                echo "<div class=\"row post\" id=\"post" . $publicacio['idPub'] . "\">
+                echo "<div class=\"row post\" id=\"post" . $publicacio['idPub'] . "\" style=\"text-align:center;\">
                             <div class=\"row\" style=\"border-bottom: 1px solid black; padding-bottom: 10px;\">
                                 <div class=\"col-lg-2\">
                                     <a href=\"profile.php?idUser=" . $publicacio['idUser'] . "\">
